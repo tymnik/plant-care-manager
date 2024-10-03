@@ -1,0 +1,88 @@
+import {
+  BadRequestException,
+  Injectable,
+  NotImplementedException,
+  UnauthorizedException,
+} from '@nestjs/common';
+import * as argon2 from 'argon2';
+import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
+import { AuthResponse, LoginBody, RegisterBody } from '@plant-care/types';
+import { UserService } from 'src/user/user.service';
+
+@Injectable()
+export class AuthService {
+  constructor(
+    private usersService: UserService,
+    private jwtService: JwtService,
+    private configService: ConfigService,
+  ) {}
+  hashData(data: string) {
+    return argon2.hash(data);
+  }
+  async getTokens(userId: number, username: string): Promise<AuthResponse> {
+    const [accessToken, refreshToken] = await Promise.all([
+      this.jwtService.signAsync(
+        {
+          sub: userId,
+          username,
+        },
+        {
+          secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
+          expiresIn: '15m',
+        },
+      ),
+      this.jwtService.signAsync(
+        {
+          sub: userId,
+          username,
+        },
+        {
+          secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+          expiresIn: '7d',
+        },
+      ),
+    ]);
+    return {
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    };
+  }
+  async updateRefreshToken(userId: number, refreshToken: string) {
+    const hashedRefreshToken = await this.hashData(refreshToken);
+    await this.usersService.updateUser({
+      where: { id: userId },
+      data: {
+        refreshToken: hashedRefreshToken,
+      },
+    });
+  }
+  async registration(body: RegisterBody): Promise<AuthResponse> {
+    // Check if user exists
+    const userExists = await this.usersService.findByEmail(body.email);
+    if (userExists) {
+      throw new BadRequestException('User already exists');
+    }
+
+    // Hash password
+    const hash = await this.hashData(body.password);
+    const newUser = await this.usersService.createUser({
+      ...body,
+      password: hash,
+    });
+    const tokens = await this.getTokens(newUser.id, newUser.email);
+    await this.updateRefreshToken(newUser.id, tokens.refresh_token);
+    return tokens;
+  }
+  async login(body: LoginBody): Promise<AuthResponse> {
+    // Check if user exists
+    const user = await this.usersService.findByEmail(body.email);
+    if (!user) throw new BadRequestException('User does not exist');
+    const passwordMatches = await argon2.verify(user.password, body.password);
+    if (!passwordMatches)
+      throw new BadRequestException('Password is incorrect');
+    const tokens = await this.getTokens(user.id, user.email);
+    await this.updateRefreshToken(user.id, tokens.refresh_token);
+    return tokens;
+  }
+}

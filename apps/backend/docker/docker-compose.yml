@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: root
+      POSTGRES_DB: plant-care
+    ports:
+      - 5432:5432
+    volumes:
+      - './data/pgdata:/var/lib/postgresql/data'
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+  minio:
+    image: 'minio/minio:latest'
+    restart: always
+    container_name: skill_swap_minio
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      MINIO_ROOT_USER: root
+      MINIO_ROOT_PASSWORD: password
+    command: minio server /data/minio --console-address ":9001"
