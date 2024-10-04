@@ -5,12 +5,12 @@
 body {
   margin: 0;
   font-family: "Montserrat Variable", sans-serif;
-  font-weight: 400;
+  font-weight: $regular;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: $primary-white-color;
-  color: $primary-grey-color;
+  background: $primary-bg;
+  color: $primary-text-color;
 }
 
 *,
