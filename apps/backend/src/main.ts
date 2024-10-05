@@ -8,7 +8,7 @@ async function bootstrap() {
     .setTitle('Plants api')
     .setDescription('The Plants API description')
     .setVersion('1.0')
-    .addTag('Plants')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

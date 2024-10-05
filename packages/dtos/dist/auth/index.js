@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthResponseDto = exports.LoginBodyDto = exports.RegisterBodyDto = void 0;
+exports.AuthResponseDto = exports.LoginBodyDto = exports.RegisterBodyDto = exports.RefreshBodyDto = void 0;
+var refresh_body_dto_1 = require("./refresh-body.dto.");
+Object.defineProperty(exports, "RefreshBodyDto", { enumerable: true, get: function () { return refresh_body_dto_1.RefreshBodyDto; } });
 var register_dto_1 = require("./register.dto");
 Object.defineProperty(exports, "RegisterBodyDto", { enumerable: true, get: function () { return register_dto_1.RegisterBodyDto; } });
 var login_dto_1 = require("./login.dto");

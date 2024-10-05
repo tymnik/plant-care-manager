@@ -2,13 +2,11 @@ import {
   BadRequestException,
   ForbiddenException,
   Injectable,
-  NotImplementedException,
-  UnauthorizedException,
 } from '@nestjs/common';
-import * as argon2 from 'argon2';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { AuthResponse, LoginBody, RegisterBody } from '@plant-care/types';
+import * as argon2 from 'argon2';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
