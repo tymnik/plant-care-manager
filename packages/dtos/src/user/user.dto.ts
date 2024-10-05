@@ -20,11 +20,6 @@ export class UserDto implements User {
   @IsString()
   lastName!: string;
 
-  @ApiProperty({ description: "Middle name of the user", type: String })
-  @Expose()
-  @IsString()
-  middleName!: string;
-
   @ApiProperty({
     description: "Email of the user",
     example: "example@mail.com",

@@ -32,11 +32,6 @@ var UserDto = /** @class */ (function () {
         (0, class_validator_1.IsString)()
     ], UserDto.prototype, "lastName", void 0);
     __decorate([
-        (0, swagger_1.ApiProperty)({ description: "Middle name of the user", type: String }),
-        (0, class_transformer_1.Expose)(),
-        (0, class_validator_1.IsString)()
-    ], UserDto.prototype, "middleName", void 0);
-    __decorate([
         (0, swagger_1.ApiProperty)({
             description: "Email of the user",
             example: "example@mail.com",
