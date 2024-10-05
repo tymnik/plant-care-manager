@@ -17,22 +17,22 @@ var UserDto = /** @class */ (function () {
         (0, class_transformer_1.Exclude)()
     ], UserDto.prototype, "refreshToken", void 0);
     __decorate([
-        (0, swagger_1.ApiProperty)({ description: "Unique identifier of the user" }),
+        (0, swagger_1.ApiProperty)({ description: "Unique identifier of the user", type: Number }),
         (0, class_transformer_1.Expose)(),
         (0, class_validator_1.IsNumber)()
     ], UserDto.prototype, "id", void 0);
     __decorate([
-        (0, swagger_1.ApiProperty)({ description: "First name of the user" }),
+        (0, swagger_1.ApiProperty)({ description: "First name of the user", type: String }),
         (0, class_transformer_1.Expose)(),
         (0, class_validator_1.IsString)()
     ], UserDto.prototype, "firstName", void 0);
     __decorate([
-        (0, swagger_1.ApiProperty)({ description: "Last name of the user" }),
+        (0, swagger_1.ApiProperty)({ description: "Last name of the user", type: String }),
         (0, class_transformer_1.Expose)(),
         (0, class_validator_1.IsString)()
     ], UserDto.prototype, "lastName", void 0);
     __decorate([
-        (0, swagger_1.ApiProperty)({ description: "Middle name of the user" }),
+        (0, swagger_1.ApiProperty)({ description: "Middle name of the user", type: String }),
         (0, class_transformer_1.Expose)(),
         (0, class_validator_1.IsString)()
     ], UserDto.prototype, "middleName", void 0);
@@ -40,13 +40,18 @@ var UserDto = /** @class */ (function () {
         (0, swagger_1.ApiProperty)({
             description: "Email of the user",
             example: "example@mail.com",
+            type: String,
         }),
         (0, class_validator_1.IsEmail)(),
         (0, class_validator_1.IsString)(),
         (0, class_transformer_1.Expose)()
     ], UserDto.prototype, "email", void 0);
     __decorate([
-        (0, swagger_1.ApiProperty)({ description: "Password of the user", writeOnly: true }),
+        (0, swagger_1.ApiProperty)({
+            description: "Password of the user",
+            writeOnly: true,
+            type: String,
+        }),
         (0, class_transformer_1.Exclude)(),
         (0, class_validator_1.IsStrongPassword)({
             minLength: 8,

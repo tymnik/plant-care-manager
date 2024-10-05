@@ -1,3 +1,3 @@
-export type { RegisterBodyDto } from "./register.dto";
-export type { LoginBodyDto } from "./login.dto";
-export type { AuthResponseDto } from "./auth.response.dto";
+export { RegisterBodyDto } from "./register.dto";
+export { LoginBodyDto } from "./login.dto";
+export { AuthResponseDto } from "./auth.response.dto";

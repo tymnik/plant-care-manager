@@ -13,12 +13,14 @@ var AuthResponseDto = /** @class */ (function () {
     }
     __decorate([
         (0, swagger_1.ApiProperty)({
+            type: String,
             description: "JWT access token used for accessing protected resources",
             example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
         })
     ], AuthResponseDto.prototype, "access_token", void 0);
     __decorate([
         (0, swagger_1.ApiProperty)({
+            type: String,
             description: "JWT refresh token used for renewing the access token when it expires",
             example: "def50200e1d5ac...",
         })

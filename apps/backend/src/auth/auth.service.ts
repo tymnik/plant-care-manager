@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   NotImplementedException,
   UnauthorizedException,
@@ -57,7 +58,7 @@ export class AuthService {
       },
     });
   }
-  async registration(body: RegisterBody): Promise<AuthResponse> {
+  async signup(body: RegisterBody): Promise<AuthResponse> {
     // Check if user exists
     const userExists = await this.usersService.findByEmail(body.email);
     if (userExists) {
@@ -81,6 +82,25 @@ export class AuthService {
     const passwordMatches = await argon2.verify(user.password, body.password);
     if (!passwordMatches)
       throw new BadRequestException('Password is incorrect');
+    const tokens = await this.getTokens(user.id, user.email);
+    await this.updateRefreshToken(user.id, tokens.refresh_token);
+    return tokens;
+  }
+  async logout(userId: number) {
+    return this.usersService.updateUser({
+      where: { id: userId },
+      data: { refreshToken: null },
+    });
+  }
+  async refreshTokens(userId: number, refreshToken: string) {
+    const user = await this.usersService.user({ id: userId });
+    if (!user || !user.refreshToken)
+      throw new ForbiddenException('Access Denied');
+    const refreshTokenMatches = await argon2.verify(
+      user.refreshToken,
+      refreshToken,
+    );
+    if (!refreshTokenMatches) throw new ForbiddenException('Access Denied');
     const tokens = await this.getTokens(user.id, user.email);
     await this.updateRefreshToken(user.id, tokens.refresh_token);
     return tokens;

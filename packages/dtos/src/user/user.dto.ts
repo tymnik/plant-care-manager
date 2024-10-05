@@ -5,22 +5,22 @@ import { IsEmail, IsNumber, IsString, IsStrongPassword } from "class-validator";
 export class UserDto implements User {
   @Exclude()
   refreshToken!: string | null;
-  @ApiProperty({ description: "Unique identifier of the user" })
+  @ApiProperty({ description: "Unique identifier of the user", type: Number })
   @Expose()
   @IsNumber()
   id!: number;
 
-  @ApiProperty({ description: "First name of the user" })
+  @ApiProperty({ description: "First name of the user", type: String })
   @Expose()
   @IsString()
   firstName!: string;
 
-  @ApiProperty({ description: "Last name of the user" })
+  @ApiProperty({ description: "Last name of the user", type: String })
   @Expose()
   @IsString()
   lastName!: string;
 
-  @ApiProperty({ description: "Middle name of the user" })
+  @ApiProperty({ description: "Middle name of the user", type: String })
   @Expose()
   @IsString()
   middleName!: string;
@@ -28,13 +28,18 @@ export class UserDto implements User {
   @ApiProperty({
     description: "Email of the user",
     example: "example@mail.com",
+    type: String,
   })
   @IsEmail()
   @IsString()
   @Expose()
   email!: string;
 
-  @ApiProperty({ description: "Password of the user", writeOnly: true })
+  @ApiProperty({
+    description: "Password of the user",
+    writeOnly: true,
+    type: String,
+  })
   @Exclude()
   @IsStrongPassword({
     minLength: 8,
