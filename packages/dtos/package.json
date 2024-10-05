@@ -1,0 +1,21 @@
+{
+  "name": "@plant-care/dtos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@nestjs/swagger": "^7.4.2",
+    "@plant-care/types": "*",
+    "@prisma/client": "^5.20.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1"
+  }
+}
