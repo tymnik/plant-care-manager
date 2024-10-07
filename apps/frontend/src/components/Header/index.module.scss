@@ -20,7 +20,7 @@
     fill: var(--primary-item-color);
     transition: all $transition;
     &:hover {
-      fill: $orange;
+      scale: 1.1;
     }
   }
   &__icon {
@@ -29,10 +29,10 @@
     fill: var(--primary-item-color);
     transition: all $transition;
     &:hover {
-      fill: $orange;
+      scale: 1.1;
     }
   }
-  &__settingsWrapper{
+  &__settingsWrapper {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -42,7 +42,7 @@
 @media screen and (min-width: $tablet) {
   .header {
     padding: 4px 20px;
-    &__menuWrapper{
+    &__menuWrapper {
       display: flex;
       align-items: center;
       gap: 52px;
@@ -55,7 +55,7 @@
         color: var(--primary-item-color);
         transition: all $transition;
         &:hover {
-          color: $orange;
+          text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
         }
       }
     }
@@ -70,16 +70,16 @@
   }
 }
 
-@media screen and (min-width: $desktop){
-    .header {
+@media screen and (min-width: $desktop) {
+  .header {
     padding: 6px 60px;
-    &__menuWrapper{   
+    &__menuWrapper {
       gap: 60px;
     }
     &__menu {
       gap: 80px;
       &__item {
-        font-size: 24px;      
+        font-size: 24px;
       }
     }
     &__logo {

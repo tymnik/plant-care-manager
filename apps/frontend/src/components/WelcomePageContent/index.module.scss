@@ -1,0 +1,229 @@
+@import "../../styles//vars";
+
+.wpc {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  &__heading {
+    margin: 0 auto;
+    font-size: 14px;
+    color: var(--secondary-text-color);
+    font-weight: $medium;
+    transition: $transition;
+  }
+}
+
+.wpc_advantages {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
+  column-gap: 32px;
+  row-gap: 12px;
+  margin: 0 auto;
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    &__icon {
+      display: block;
+      width: 24px;
+      height: 24px;
+    }
+    &__text {
+      font-size: 12px;
+      color: var(--primary-text-color);
+      max-width: 130px;
+      transition: $transition;
+    }
+  }
+}
+
+.wpc_choiceList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 327px;
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 12px;
+    background-color: $primary-green;
+    border-radius: 8px;
+    &__order {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $secondary-green;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      &__number {
+        display: flex;
+        font-size: 12px;
+        font-weight: $regular-extra;
+        color: $black;
+      }
+    }
+    &__text {
+      display: flex;
+      font-size: 12px;
+      font-weight: $regular-extra;
+      color: $black;
+    }
+  }
+}
+
+.wpc_nav {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin: 0 auto;
+  &__signButton,
+  &__loginButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    width: 80px;
+    height: 36px;
+    color: $black;
+    font-size: 14px;
+    font-weight: $regular-extra;
+    transition: $transition;
+    &:hover,
+    &:focus {
+      background-color: $tertiary-green;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    }
+  }
+  &__signButton {
+    background-color: $secondary-green;
+  }
+  &__loginButton {
+    border: 2px solid $secondary-green;
+    background-color: $primary-green;
+    &:hover,
+    &:focus {
+      border: 2px solid transparent;
+    }
+  }
+  &__text {
+    font-size: 12px;
+    font-weight: $regular-extra;
+    color: var(--primary-text-color);
+    transition: $transition;
+  }
+}
+
+@media screen and (min-width: $tablet) {
+  .wpc {
+    gap: 24px;
+    &__heading {
+      font-size: 24px;
+    }
+  }
+
+  .wpc_advantages {
+    column-gap: 116px;
+    row-gap: 32px;
+    &__item {
+      gap: 24px;
+      &__icon {
+        width: 36px;
+        height: 36px;
+      }
+      &__text {
+        font-size: 16px;
+        max-width: 170px;
+      }
+    }
+  }
+  .wpc_choiceList {
+    gap: 24px;
+    max-width: 576px;
+    &__item {
+      padding: 10px 16px;
+      &__order {
+        width: 28px;
+        height: 28px;
+        &__number {
+          font-size: 16px;
+        }
+      }
+      &__text {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .wpc_nav {
+    gap: 36px;
+    &__signButton,
+    &__loginButton {
+      width: 150px;
+      height: 48px;
+      font-size: 20px;
+    }
+    &__text {
+      font-size: 16px;
+    }
+  }
+}
+
+@media screen and (min-width: $desktop) {
+   .wpc {
+    gap: 40px;
+    &__heading {
+      font-size: 36px;
+    }
+  }
+
+  .wpc_advantages {
+    column-gap: 132px;
+    row-gap: 36px;
+    &__item {
+      gap: 24px;
+      &__icon {
+        width: 56px;
+        height: 56px;
+      }
+      &__text {
+        font-size: 24px;
+        max-width: unset;
+      }
+    }
+  }
+  .wpc_choiceList {
+    gap: 36px;
+    max-width: 1050px;
+    &__item {
+      padding: 10px 24px;
+      &__order {
+        width: 36px;
+        height: 36px;
+        &__number {
+          font-size: 24px;
+        }
+      }
+      &__text {
+        font-size: 24px;
+      }
+    }
+  }
+
+  .wpc_nav {
+    gap: 40px;
+    &__signButton,
+    &__loginButton {
+      width: 200px;
+      height: 60px;
+      font-size: 32px;
+    }
+    &__text {
+      font-size: 24px;
+    }
+  }
+}
