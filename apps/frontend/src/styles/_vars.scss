@@ -1,26 +1,30 @@
-// colors
-$primary-bg: #fefae0;
-$secondary-bg: #e8f4b5;
-$accent-bg: #e8f4b5;
-$primary-text-color: #131313;
-$secondary-text-color: #3e3e3d;
-$primary-icon-fill: #3e3e3d;
+:root {
+  // colors
+  --primary-bg: #fefae0;
+  --secondary-bg: #e8f4b5;
+  --accent-bg: #e8f4b5;
+  --primary-text-color: #131313;
+  --secondary-text-color: #3e3e3d;
+  --primary-item-color: #3e3e3d;
+}
+
+//dark-mode
+[data-theme="dark"] {
+  --primary-bg: #3e3e3d;
+  --secondary-bg: #5a5b4f;
+  --accent-bg: #fefae0;
+  --primary-text-color: #f2f2f2;
+  --secondary-text-color: #d2d2d2;
+  --primary-item-color: #fefae0;
+}
 
 //constant
 $primary-green: #e8f4b5;
 $secondary-green: #b6e892;
+$tertiary-green: #9be665;
 $white: #fff;
+$black: #131313;
 $orange: #ff5c00;
-
-//dark-mode
-[data-theme="dark"] {
-  $primary-bg: #3e3e3d;
-  $secondary-bg: #5a5b4f;
-  $accent-bg: #fefae0;
-  $primary-text-color: #f2f2f2;
-  $secondary-text-color: #d2d2d2;
-  $primary-icon-fill: #fefae0;
-}
 
 // breakpoints
 $mobile: 320px;
@@ -29,10 +33,11 @@ $desktop: 1280px;
 $desktop-wide: 1680px;
 
 // font-weight
+$light: 300;
 $regular: 400;
 $regular-extra: 500;
 $medium: 600;
 $bold: 700;
 
 // transition
-$transition: all 250ms linear;
+$transition: 300ms linear;
