@@ -1,0 +1,39 @@
+@import "../../styles/vars";
+@import"../../styles/animations";
+
+.loaderWrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+
+  &__circle {
+    width: 80px;
+    height: 80px;
+    border: 5px solid $orange;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: circleRotation 2s linear infinite;
+  }
+
+  &__leaf {
+    position: absolute;
+    font-size: 20px;
+    top: -20px;
+    left: 0;
+    animation: fallenLeaves infinite ease-in;
+  }
+}
+
+
