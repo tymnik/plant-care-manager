@@ -9,7 +9,7 @@ export class AppController {
 
   @Get('ping')
   @ApiResponse({ type: String })
-  getHello(): string {
-    return this.appService.getHello();
+  ping(): string {
+    return this.appService.ping();
   }
 }
