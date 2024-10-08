@@ -10,13 +10,12 @@
   justify-content: space-between;
   padding: 4px 8px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-
   &__menu {
     display: none;
   }
   &__logo {
-    height: 32px;
-    width: 32px;
+    height: 36px;
+    width: 36px;
     fill: var(--primary-item-color);
     transition: all $transition;
     &:hover {
@@ -36,6 +35,39 @@
     display: flex;
     align-items: center;
     gap: 10px;
+  }
+  &__menuButton {
+    width: 20px;
+    height: 20px;
+    fill: var(--primary-item-color);
+    transition: all $transition;
+    cursor: pointer;
+    &:hover {
+      scale: 1.1;
+    }
+  }
+}
+
+.mobMenu_wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--primary-bg);
+}
+
+.mobMenu {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+  gap: 20px;
+  &__item {
+    color: var(--primary-item-color);
+    transition: all $transition;
+    &:hover {
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    }
   }
 }
 
@@ -67,6 +99,16 @@
       height: 32px;
       width: 32px;
     }
+    &__settingsWrapper {
+      gap: 16px;
+    }
+    &__menuButton {
+      display: none;
+    }
+  }
+
+  .mobMenu_wrapper {
+    display: none;
   }
 }
 
@@ -89,6 +131,9 @@
     &__icon {
       height: 44px;
       width: 44px;
+    }
+    &__settingsWrapper {
+      gap: 28px;
     }
   }
 }
