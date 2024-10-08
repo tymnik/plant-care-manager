@@ -10,8 +10,8 @@ services:
       POSTGRES_DB: plant-care
     ports:
       - 5432:5432
-    volumes:
-      - './data/pgdata:/var/lib/postgresql/data'
+    # volumes:
+    #   - './data/pgdata:/var/lib/postgresql/data'
   adminer:
     image: adminer
     restart: always
