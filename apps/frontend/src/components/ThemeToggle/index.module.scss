@@ -1,0 +1,36 @@
+@import "../../styles/_vars.scss";
+
+.toggleContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  &__icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    transition: $transition;
+  }
+}
+
+@media screen and (min-width: $tablet) {
+  .toggle__icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media screen and (min-width: $desktop) {
+  .toggle__icon {
+    width: 32px;
+    height: 32px;
+  }
+}
