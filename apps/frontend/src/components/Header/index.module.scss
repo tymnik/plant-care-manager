@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 4px 8px;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: $secondary-shadow;
   &__menu {
     display: none;
   }
@@ -66,7 +66,7 @@
     color: var(--primary-item-color);
     transition: all $transition;
     &:hover {
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+      text-shadow: $primary-shadow;
     }
   }
 }
@@ -87,7 +87,7 @@
         color: var(--primary-item-color);
         transition: all $transition;
         &:hover {
-          text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+          text-shadow: $primary-shadow;
         }
       }
     }

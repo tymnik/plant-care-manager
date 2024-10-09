@@ -1,0 +1,46 @@
+@import "../../styles/vars";
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--secondary-text-color);
+  box-sizing: border-box;
+  width: 100%;
+  padding: 4px 8px;
+  outline: none;
+  font-size: 14px;
+  color: var(--primary-text-color);
+  &::placeholder {
+    font-size: 14px;
+    font-weight: $light;
+    line-height: 1.5;
+    color: var(--secondary-text-color);
+  }
+}
+
+@media screen and (min-width: $tablet) {
+  .input {
+    padding: 8px 12px;
+    font-size: 18px;
+    &::placeholder {
+      font-size: 18px;
+    }
+  }
+}
+
+@media screen and (min-width: $desktop) {
+  .input {
+    padding: 12px 16px;
+    font-size: 20px;
+    &::placeholder {
+      font-size: 20px;
+    }
+  }
+}

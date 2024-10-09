@@ -96,7 +96,7 @@
     &:hover,
     &:focus {
       background-color: $tertiary-green;
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+      text-shadow: $primary-shadow;
     }
   }
   &__signButton {
@@ -141,6 +141,7 @@
       }
     }
   }
+
   .wpc_choiceList {
     gap: 24px;
     max-width: 576px;
@@ -196,6 +197,7 @@
       }
     }
   }
+
   .wpc_choiceList {
     gap: 36px;
     max-width: 1050px;

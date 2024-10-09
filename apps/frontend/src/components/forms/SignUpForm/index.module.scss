@@ -1,0 +1,68 @@
+@import "../../../styles/vars";
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.su_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  gap: 24px;
+  width: 100%;
+  background-color: var(--secondary-bg);
+  border-radius: 12px;
+  box-shadow: $primary-shadow;
+  transition: all $transition;
+}
+
+.su_footer {
+  display: flex;
+  margin: 24px auto;
+  gap: 12px;
+  &__text {
+    font-size: 16px;
+    color: var(--primary-text-color);
+    transition: all $transition;
+  }
+  &__link {
+    font-size: 16px;
+    text-decoration: underline;
+    color: var(--primary-text-color);
+    transition: all $transition;
+    &:hover,
+    &:focus {
+      text-shadow: $primary-shadow;
+    }
+  }
+}
+
+@media screen and (min-width: $tablet) {
+  .su_footer {
+    gap: 14px;
+    margin: 36px auto;
+    &__text {
+      font-size: 20px;
+    }
+    &__link {
+      font-size: 20px;
+    }
+  }
+}
+
+@media screen and (min-width: $desktop) {
+  .su_footer {
+    gap: 16px;
+    margin: 48px auto;
+    &__text {
+      font-size: 24px;
+    }
+    &__link {
+      font-size: 24px;
+    }
+  }
+}

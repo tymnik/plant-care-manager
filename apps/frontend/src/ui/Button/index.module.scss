@@ -1,0 +1,72 @@
+@import "../../styles/vars";
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 80px;
+  height: 36px;
+  border-radius: 8px;
+  color: $black;
+  font-size: 14px;
+  font-weight: $regular-extra;
+  transition: all $transition;
+  &:hover,
+  &:focus {
+    background-color: $tertiary-green;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  }
+  &:disabled {
+    background-color: $grey;
+    cursor: not-allowed;
+  }
+  &.primary {
+    background-color: $secondary-green;
+  }
+  &.secondary {
+    border: 2px solid $secondary-green;
+    background-color: $primary-green;
+    &:hover,
+    &:focus {
+      border: 2px solid transparent;
+    }
+  }
+  &.icon {
+    width: fit-content;
+    height: fit-content;
+    background-color: transparent;
+    border: none;
+  }
+  &.ghost {
+    width: fit-content;
+    height: fit-content;
+    color: var(--primary-text-color);
+    background-color: transparent;
+    font-weight: $light;
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+      text-shadow: unset;
+    }
+  }
+}
+
+@media screen and (min-width: $tablet) {
+  .button {
+    width: 150px;
+    height: 48px;
+    font-size: 20px;
+  }
+}
+
+@media screen and (min-width: $desktop) {
+  .button {
+    width: 180px;
+    height: 52px;
+    font-size: 28px;
+    &.ghost {
+      font-size: 24px;
+    }
+  }
+}
