@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
 import { advantages, choiceItems } from '../../mock'
-import { ROUTES } from '../../constants/routes'
+import { ROUTES } from '../../constants'
 import leafIcon from '../../assets/welcome-page-images/leaf.svg'
 
 import style from './index.module.scss'

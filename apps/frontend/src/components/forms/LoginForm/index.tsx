@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import { ROUTES } from '../../../constants/routes'
+import { ROUTES } from '../../../constants'
 import Input from '../../../ui/Input'
 import Button from '../../../ui/Button'
 

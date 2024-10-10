@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { ROUTES } from '../../constants/routes';
+import { ROUTES } from '../../constants';
 
 import Icon from '../../ui/Icon';
 import ThemeToggle from '../ThemeToggle';

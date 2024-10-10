@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 
 import Layout from './components/Layout';
-import { ROUTES } from './constants/routes';
+import { ROUTES } from './constants';
 
 // const AddPlantPage = lazy(() => import('./pages/AddPlantPage'));
 // const CareSchedulePage = lazy(() => import('./pages/CareSchedulePage'));

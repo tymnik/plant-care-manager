@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { Outlet, useLocation, Link, useNavigate } from 'react-router-dom';
 
-import { ROUTES } from '../../constants/routes';
+import { ROUTES } from '../../constants';
 import Icon from '../../ui/Icon';
 import Button from '../../ui/Button';
 import Loader from '../Loader';
