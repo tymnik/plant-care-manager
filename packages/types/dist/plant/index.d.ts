@@ -7,17 +7,17 @@ export declare namespace Plant {
         type Update = Prisma.PlantUpdateInput;
     }
     namespace Args {
-        type Create = Plant.Inputs.Create;
+        type Create = Prisma.PlantUpdateInput;
         type Update = {
             where: Prisma.PlantWhereInput;
-            data: Plant.Inputs.Update;
+            data: Prisma.PlantUpdateInput;
         };
         type FindMany = {
             cursor?: Prisma.PlantWhereUniqueInput;
             where?: Prisma.PlantWhereInput;
             orderBy?: Prisma.PlantOrderByWithRelationInput;
         } & Base.Args.FindMany;
-        type FoundOne = Prisma.PlantWhereUniqueInput;
+        type FindOne = Prisma.PlantWhereUniqueInput;
         type Delete = Prisma.PlantWhereUniqueInput;
     }
 }

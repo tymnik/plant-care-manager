@@ -1,2 +1,2 @@
-import { CreateUser } from "../user/create-user";
-export type RegisterBody = CreateUser;
+import { User } from "../user";
+export type RegisterBody = User.Inputs.Create;

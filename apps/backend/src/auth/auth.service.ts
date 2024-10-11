@@ -5,13 +5,12 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { AuthResponse, LoginBody, RegisterBody } from '@plant-care/types';
+import { Auth } from '@plant-care/types';
 import * as argon2 from 'argon2';
-import { IAuth } from 'src/interfaces/auth/IAuth';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
-export class AuthService implements IAuth {
+export class AuthService {
   constructor(
     private usersService: UserService,
     private jwtService: JwtService,
@@ -20,7 +19,7 @@ export class AuthService implements IAuth {
   hashData(data: string) {
     return argon2.hash(data);
   }
-  async getTokens(userId: number, username: string): Promise<AuthResponse> {
+  async getTokens(userId: number, username: string): Promise<Auth.Response> {
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(
         {
@@ -57,7 +56,7 @@ export class AuthService implements IAuth {
       },
     });
   }
-  async signup(body: RegisterBody): Promise<AuthResponse> {
+  async signup(body: Auth.RegisterBody): Promise<Auth.Response> {
     // Check if user exists
     const userExists = await this.usersService.findByEmail(body.email);
     if (userExists) {
@@ -74,7 +73,7 @@ export class AuthService implements IAuth {
     await this.updateRefreshToken(newUser.id, tokens.refresh_token);
     return tokens;
   }
-  async login(body: LoginBody): Promise<AuthResponse> {
+  async login(body: Auth.LoginBody): Promise<Auth.Response> {
     // Check if user exists
     const user = await this.usersService.findByEmail(body.email);
     if (!user) throw new BadRequestException('User does not exist');

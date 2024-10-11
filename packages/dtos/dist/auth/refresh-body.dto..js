@@ -7,15 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RefreshBodyDto = void 0;
-var swagger_1 = require("@nestjs/swagger");
-var class_validator_1 = require("class-validator");
-var RefreshBodyDto = /** @class */ (function () {
-    function RefreshBodyDto() {
-    }
-    __decorate([
-        (0, swagger_1.ApiProperty)({ description: "refresh token", type: String }),
-        (0, class_validator_1.IsString)()
-    ], RefreshBodyDto.prototype, "refresh_token", void 0);
-    return RefreshBodyDto;
-}());
+const swagger_1 = require("@nestjs/swagger");
+const class_validator_1 = require("class-validator");
+class RefreshBodyDto {
+}
 exports.RefreshBodyDto = RefreshBodyDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "refresh token", type: String }),
+    (0, class_validator_1.IsString)()
+], RefreshBodyDto.prototype, "refresh_token", void 0);

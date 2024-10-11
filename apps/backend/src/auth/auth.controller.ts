@@ -19,6 +19,7 @@ import { AccessTokenGuard } from './guards/access-token.guard';
 import { RefreshTokenGuard } from './guards/refresh-token.guard';
 import { AuthUser } from './decorators/user.decorator';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
+import { Auth } from '@plant-care/types';
 
 @ApiTags('Auth')
 @Controller('auth')

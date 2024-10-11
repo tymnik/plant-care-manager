@@ -9,15 +9,15 @@ export namespace User {
   export namespace Args {
     export type Create = Prisma.UserCreateInput;
     export type Update = {
-      where: Prisma.UserWhereInput;
+      where: Prisma.UserWhereUniqueInput;
       data: Prisma.UserUpdateInput;
     };
     export type FindMany = {
       cursor?: Prisma.UserWhereUniqueInput;
       where?: Prisma.UserWhereInput;
       orderBy?: Prisma.UserOrderByWithRelationInput;
-    } & Base.FindManyArgs;
-    export type FoundOne = Prisma.UserWhereUniqueInput;
+    } & Base.Args.FindMany;
+    export type FindOne = Prisma.UserWhereUniqueInput;
 
     export type Delete = Prisma.UserWhereUniqueInput;
   }
