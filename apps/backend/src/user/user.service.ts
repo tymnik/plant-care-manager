@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
+import { ICRUDService } from 'src/interfaces/crud/service/ICRUD';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
-export class UserService {
+export class UserService implements ICRUDService {
   constructor(private prisma: PrismaService) {}
-  async user(
+  async findOne(
     userWhereUniqueInput: Prisma.UserWhereUniqueInput,
   ): Promise<User | null> {
     return this.prisma.user.findUnique({
@@ -13,9 +14,9 @@ export class UserService {
     });
   }
   async findByEmail(email: string) {
-    return await this.user({ email });
+    return await this.findOne({ email });
   }
-  async users(params: {
+  async findMany(params: {
     skip?: number;
     take?: number;
     cursor?: Prisma.UserWhereUniqueInput;
@@ -32,13 +33,13 @@ export class UserService {
     });
   }
 
-  async createUser(data: Prisma.UserCreateInput): Promise<User> {
+  async create(data: Prisma.UserCreateInput): Promise<User> {
     return this.prisma.user.create({
       data,
     });
   }
 
-  async updateUser(params: {
+  async update(params: {
     where: Prisma.UserWhereUniqueInput;
     data: Prisma.UserUpdateInput;
   }): Promise<User> {
@@ -49,7 +50,7 @@ export class UserService {
     });
   }
 
-  async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
+  async delete(where: Prisma.UserWhereUniqueInput): Promise<User> {
     return this.prisma.user.delete({
       where,
     });

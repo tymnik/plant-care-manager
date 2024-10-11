@@ -7,10 +7,11 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { AuthResponse, LoginBody, RegisterBody } from '@plant-care/types';
 import * as argon2 from 'argon2';
+import { IAuth } from 'src/interfaces/auth/IAuth';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
-export class AuthService {
+export class AuthService implements IAuth {
   constructor(
     private usersService: UserService,
     private jwtService: JwtService,
@@ -49,7 +50,7 @@ export class AuthService {
   }
   async updateRefreshToken(userId: number, refreshToken: string) {
     const hashedRefreshToken = await this.hashData(refreshToken);
-    await this.usersService.updateUser({
+    await this.usersService.update({
       where: { id: userId },
       data: {
         refreshToken: hashedRefreshToken,
@@ -65,7 +66,7 @@ export class AuthService {
 
     // Hash password
     const hash = await this.hashData(body.password);
-    const newUser = await this.usersService.createUser({
+    const newUser = await this.usersService.create({
       ...body,
       password: hash,
     });
@@ -85,13 +86,13 @@ export class AuthService {
     return tokens;
   }
   async logout(userId: number) {
-    return this.usersService.updateUser({
+    return this.usersService.update({
       where: { id: userId },
       data: { refreshToken: null },
     });
   }
   async refreshTokens(userId: number, refreshToken: string) {
-    const user = await this.usersService.user({ id: userId });
+    const user = await this.usersService.findOne({ id: userId });
     if (!user || !user.refreshToken)
       throw new ForbiddenException('Access Denied');
     const refreshTokenMatches = await argon2.verify(
