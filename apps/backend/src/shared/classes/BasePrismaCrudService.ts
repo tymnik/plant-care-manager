@@ -13,6 +13,9 @@ export class BasePrismaCrudService<T, Create, FindMany, FindOne, Delete, Update>
   ) {
     this.recourse = recourse;
   }
+  async count(): Promise<number> {
+    return await this.prisma[this.recourse].count();
+  }
   async findOne(userWhereUniqueInput: FindOne): Promise<T | null> {
     return this.prisma[this.recourse].findUnique({
       where: userWhereUniqueInput,

@@ -6,9 +6,11 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import {
+  FindManyDto,
   PlantCreateBodyDto,
   PlantFindManyQueryDto,
   PlantIdPathParamsDto,
@@ -17,13 +19,14 @@ import {
 } from '@plant-care/dtos';
 import { BaseCrudController } from 'src/shared/classes/BaseCrudController';
 import { PlantService } from './plant.service';
+import { query } from 'express';
+import { Pagination } from 'src/shared/classes/pagination';
 
 @Controller('plant')
 @ApiTags('Plant')
 export class PlantController extends BaseCrudController<
   PlantResponseDto,
   PlantCreateBodyDto,
-  PlantFindManyQueryDto,
   PlantIdPathParamsDto,
   PlantUpdateBodyDto
 > {
@@ -41,8 +44,8 @@ export class PlantController extends BaseCrudController<
     return super.findOne(params);
   }
   @Get()
-  findAll(@Body() body: PlantFindManyQueryDto): Promise<PlantResponseDto[]> {
-    return super.findAll(body);
+  findAll(@Query() query: FindManyDto): Promise<Pagination<PlantResponseDto>> {
+    return super.findAll(query);
   }
   @Patch(':id')
   update(

@@ -1,10 +1,4 @@
-import {
-  ApiParam,
-  ApiProperty,
-  OmitType,
-  PartialType,
-  PickType,
-} from "@nestjs/swagger";
+import { OmitType, PartialType, PickType } from "@nestjs/swagger";
 import * as Test from "./plant.dto";
 import { Plant as PlantType } from "@plant-care/types";
 

@@ -1,9 +1,11 @@
+import { FindManyDto } from '@plant-care/dtos';
 import { BasePrismaCrudService } from './BasePrismaCrudService';
+import { skip } from 'node:test';
+import { Pagination } from './pagination';
 
 export class BaseCrudController<
   T,
   Create,
-  FindManyBody,
   IdPathParams extends { id: number },
   UpdateBody,
 > {
@@ -20,8 +22,20 @@ export class BaseCrudController<
   create(createPlantDto: Create): Promise<T> {
     return this.baseCrudService.create(createPlantDto);
   }
-  findAll(body: FindManyBody): Promise<T[]> {
-    return this.baseCrudService.findMany({});
+  async findAll(body: FindManyDto): Promise<Pagination<T>> {
+    const count = await this.baseCrudService.count();
+
+    const data = await this.baseCrudService.findMany({
+      skip: (body.page - 1) * body.perPage,
+      take: +body.perPage,
+      orderBy:
+        body.orderBy && body.order
+          ? {
+              [body.orderBy]: body.order,
+            }
+          : null,
+    });
+    return new Pagination<T>(data, count, body.perPage, body.page);
   }
   findOne(params: IdPathParams): Promise<T> {
     return this.baseCrudService.findOne({ id: +params.id });
