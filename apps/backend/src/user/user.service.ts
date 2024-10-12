@@ -3,7 +3,7 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from '@plant-care/types';
 import { BasePrismaCrudService } from 'src/shared/classes/BasePrismaCrudService';
-import { ICRUDService } from 'src/interfaces/crud/service/ICRUD';
+import { ICRUDService } from 'src/shared/interfaces/crud/service/ICRUD';
 
 @Injectable()
 export class UserService

@@ -1,37 +1,58 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
-import { CreatePlantDto } from './dto/create-plant.dto';
-import { UpdatePlantDto } from './dto/update-plant.dto';
+import { ApiTags } from '@nestjs/swagger';
+import {
+  PlantCreateBodyDto,
+  PlantFindManyQueryDto,
+  PlantIdPathParamsDto,
+  PlantResponseDto,
+  PlantUpdateBodyDto,
+} from '@plant-care/dtos';
+import { BaseCrudController } from 'src/shared/classes/BaseCrudController';
 import { PlantService } from './plant.service';
 
 @Controller('plant')
-export class PlantController {
-  constructor(private readonly plantService: PlantService) {}
-  // @Post()
-  // create(@Body() createPlantDto: CreatePlantDto) {
-  //   return this.plantService.create(createPlantDto);
-  // }
-  // @Get()
-  // findAll() {
-  //   return this.plantService.findAll();
-  // }
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.plantService.findOne(+id);
-  // }
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updatePlantDto: UpdatePlantDto) {
-  //   return this.plantService.update(+id, updatePlantDto);
-  // }
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.plantService.remove(+id);
-  // }
+@ApiTags('Plant')
+export class PlantController extends BaseCrudController<
+  PlantResponseDto,
+  PlantCreateBodyDto,
+  PlantFindManyQueryDto,
+  PlantIdPathParamsDto,
+  PlantUpdateBodyDto
+> {
+  constructor(private readonly plantService: PlantService) {
+    super(plantService);
+  }
+  @Post()
+  create(
+    @Body() createPlantDto: PlantCreateBodyDto,
+  ): Promise<PlantResponseDto> {
+    return super.create(createPlantDto);
+  }
+  @Get(':id')
+  findOne(@Param() params: PlantIdPathParamsDto): Promise<PlantResponseDto> {
+    return super.findOne(params);
+  }
+  @Get()
+  findAll(@Body() body: PlantFindManyQueryDto): Promise<PlantResponseDto[]> {
+    return super.findAll(body);
+  }
+  @Patch(':id')
+  update(
+    @Param() params: PlantIdPathParamsDto,
+    @Body() body: PlantUpdateBodyDto,
+  ): Promise<PlantResponseDto> {
+    return super.update(params, body);
+  }
+  @Delete(':id')
+  remove(params: PlantIdPathParamsDto): Promise<PlantResponseDto> {
+    return super.remove(params);
+  }
 }
