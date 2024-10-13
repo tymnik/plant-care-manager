@@ -11,16 +11,16 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import {
   FindManyDto,
+  PaginationDto,
   PlantCreateBodyDto,
-  PlantFindManyQueryDto,
   PlantIdPathParamsDto,
   PlantResponseDto,
   PlantUpdateBodyDto,
 } from '@plant-care/dtos';
 import { BaseCrudController } from 'src/shared/classes/BaseCrudController';
-import { PlantService } from './plant.service';
-import { query } from 'express';
 import { Pagination } from 'src/shared/classes/pagination';
+import { ApiOkResponsePaginated } from 'src/shared/decorators/api-ok-response-paginated.decorator';
+import { PlantService } from './plant.service';
 
 @Controller('plant')
 @ApiTags('Plant')
@@ -44,7 +44,10 @@ export class PlantController extends BaseCrudController<
     return super.findOne(params);
   }
   @Get()
-  findAll(@Query() query: FindManyDto): Promise<Pagination<PlantResponseDto>> {
+  @ApiOkResponsePaginated(PlantResponseDto)
+  findAll(
+    @Query() query: FindManyDto,
+  ): Promise<PaginationDto<PlantResponseDto>> {
     return super.findAll(query);
   }
   @Patch(':id')

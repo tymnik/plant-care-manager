@@ -1,4 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { Base } from "@plant-care/types/dist/base";
 import { Type } from "class-transformer";
 import { IsOptional, IsNumber, IsEnum, IsString, Max } from "class-validator";
 
@@ -50,4 +51,35 @@ export class FindManyDto extends PaginationQuery {
   order?: SortOrder = SortOrder.Asc; // Default to ascending order
 }
 
-export class PaginationDto<T> {}
+export class PaginationMetaDto implements Base.PaginationMeta {
+  @ApiProperty({ type: Number, description: "Total number of items" })
+  total!: number;
+
+  @ApiProperty({ type: Number, description: "The index of the last page" })
+  lastPage!: number;
+
+  @ApiProperty({ type: Number, description: "The index of the current page" })
+  currentPage!: number;
+
+  @ApiProperty({ type: Number, description: "Number of items per page" })
+  perPage!: number;
+
+  @ApiProperty({
+    type: Number,
+    description: "The index of the previous page",
+    nullable: true,
+  })
+  prev!: number | null;
+
+  @ApiProperty({
+    type: Number,
+    description: "The index of the next page",
+    nullable: true,
+  })
+  next!: number | null;
+}
+export class PaginationDto<T> implements Base.PaginationResponse {
+  data!: T[];
+  @ApiProperty({ description: "Pagination metadata", type: PaginationMetaDto })
+  meta!: PaginationMetaDto;
+}

@@ -1,13 +1,8 @@
-export class Pagination<T> {
+import { Base } from '@plant-care/types/dist/base';
+
+export class Pagination<T> implements Base.PaginationResponse {
   data: T[];
-  meta: {
-    total: number;
-    lastPage: number;
-    currentPage: number;
-    perPage: number;
-    prev: number | null;
-    next: number | null;
-  };
+  meta: Base.PaginationMeta;
   constructor(data: T[], count: number, perPage: number, page: number) {
     const lastPage = count / perPage;
     this.data = [...data];
