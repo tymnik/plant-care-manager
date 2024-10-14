@@ -27,7 +27,7 @@ const Layout = () => {
             <Outlet />
             <Button
               type="button"
-              onClick={() => navigate(-1)}
+              onClick={() => navigate(ROUTES.WELCOME)}
               variant="ghost"
               icon={<Icon id="angle-left-circle" className={style.homeButton} />}
             >

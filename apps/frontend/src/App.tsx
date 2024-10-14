@@ -6,10 +6,12 @@ import {
 
 import Layout from './components/Layout';
 import { ROUTES } from './constants';
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 
 // const AddPlantPage = lazy(() => import('./pages/AddPlantPage'));
 // const CareSchedulePage = lazy(() => import('./pages/CareSchedulePage'));
-// const DashboardPage = lazy(() => import('./pages/DashboardPage'));
+const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 // const DetailsPage = lazy(() => import('./pages/DetailsPage'));
 const EncyclopediaPage = lazy(() => import('./pages/EncyclopediaPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'))
@@ -24,8 +26,9 @@ const App = () => {
         <Route path={ROUTES.WELCOME} element={<Layout />} >
           <Route path={ROUTES.WELCOME} element={<WelcomePage />} />
           <Route path={ROUTES.ENCYCLOPEDIA} element={<EncyclopediaPage />} />
-          <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-          <Route path={ROUTES.SIGN_UP} element={<SignUpPage />} />
+          <Route path={ROUTES.LOGIN} element={<PublicRoute restricted path={ROUTES.DASHBOARD}><LoginPage /></PublicRoute>} />
+          <Route path={ROUTES.SIGN_UP} element={<PublicRoute restricted path={ROUTES.DASHBOARD}><SignUpPage /></PublicRoute>} />
+          <Route path={ROUTES.DASHBOARD} element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
           {/* <Route path={ROUTES.DASHBOARD} element={<DashboardPage />} />
           <Route path={ROUTES.ADD_PLANT} element={<AddPlantPage />} />
           <Route path={ROUTES.DETAILS} element={<DetailsPage />} />

@@ -1,2 +1,2 @@
 import { Prisma } from "@prisma/client";
-export type CreateUser = Prisma.UserCreateInput;
+export type CreateUser = Omit<Prisma.UserCreateInput, "refreshToken">;

@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, ReactNode, useState } from 'react';
+import { InputHTMLAttributes, ReactNode, forwardRef } from 'react';
 import clsx from 'clsx';
 
 import style from './index.module.scss';
@@ -10,19 +10,14 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     error?: string;
 }
 
-const Input = ({
+const Input = forwardRef<HTMLInputElement, InputProps>(({
     title,
     icon,
     error,
     labelClassName = '',
     ...rest
-}: InputProps) => {
-    const [inputValue, setInputValue] = useState('');
+}, ref) => {
     const errorInputStyles = error && style.errorInput;
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputValue(e.target.value);
-    };
 
     return (
         <>
@@ -32,17 +27,16 @@ const Input = ({
                 </label>
             )}
             <div className={style.inputContainer}>
-                {icon}
                 <input
-                    value={inputValue}
-                    onChange={handleChange}
+                    ref={ref}
                     className={clsx(style.input, errorInputStyles)}
                     {...rest}
-                />               
+                />
+                {icon}
             </div>
             {error && <p className={style.errorText}>{error}</p>}
         </>
     );
-};
+});
 
 export default Input;

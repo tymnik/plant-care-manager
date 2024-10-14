@@ -22,7 +22,7 @@ export const signup = createAsyncThunk<
   UserResponse,
   SignUpPropsType,
   { rejectValue: string }
->("user/signup", async (credentials, thunkAPI) => {
+>("auth/signup", async (credentials, thunkAPI) => {
   try {
     const user = await registerUser(credentials);
     return user;
@@ -38,7 +38,7 @@ export const login = createAsyncThunk<
   UserResponse,
   LoginPropsType,
   { rejectValue: string }
->("user/login", async (credentials, thunkAPI) => {
+>("auth/login", async (credentials, thunkAPI) => {
   try {
     const user = await loginUser(credentials);
     return user;
@@ -54,7 +54,7 @@ export const getCurrentUser = createAsyncThunk<
   Pick<UserState, "user">,
   UserId,
   { rejectValue: string }
->("user/current", async (userId, thunkAPI) => {
+>("auth/current", async (userId, thunkAPI) => {
   try {
     const user = await getUserById(userId);
     return { user };
@@ -70,7 +70,7 @@ export const refreshCurrentUser = createAsyncThunk<
   UserResponse,
   { id: UserId; refresh: string },
   { rejectValue: string }
->("user/refresh", async (token, thunkAPI) => {
+>("auth/refresh", async (token, thunkAPI) => {
   try {
     const user = await refreshUser(token);
     return user;

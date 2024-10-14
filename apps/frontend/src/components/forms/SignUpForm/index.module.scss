@@ -18,6 +18,16 @@
   border-radius: 12px;
   box-shadow: $primary-shadow;
   transition: all $transition;
+  &__eyeIcon {
+    width: 20px;
+    height: 20px;
+    fill: var(--primary-text-color);
+    transition: all $transition;
+    cursor: pointer;
+    &:hover {
+      scale: 1.1;
+    }
+  }
 }
 
 .su_footer {
@@ -42,6 +52,11 @@
 }
 
 @media screen and (min-width: $tablet) {
+  .su_form__eyeIcon {
+    width: 24px;
+    height: 24px;
+  }
+
   .su_footer {
     gap: 14px;
     margin: 36px auto;
@@ -55,6 +70,11 @@
 }
 
 @media screen and (min-width: $desktop) {
+  .su_form__eyeIcon {
+    width: 28px;
+    height: 28px;
+  }
+
   .su_footer {
     gap: 16px;
     margin: 48px auto;
