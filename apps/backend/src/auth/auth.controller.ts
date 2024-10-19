@@ -9,16 +9,16 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import {
-  RefreshBodyDto,
   LoginBodyDto,
+  RefreshBodyDto,
   RegisterBodyDto,
 } from '@plant-care/dtos';
 import { AuthService } from './auth.service';
+import { AuthUser } from './decorators/user.decorator';
 import { AccessTokenGuard } from './guards/access-token.guard';
 import { RefreshTokenGuard } from './guards/refresh-token.guard';
-import { AuthUser } from './decorators/user.decorator';
-import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -40,6 +40,12 @@ export class AuthController {
   @Get('logout')
   logout(@AuthUser() user: AuthUser) {
     this.authService.logout(+user['sub']);
+  }
+  @ApiBearerAuth()
+  @UseGuards(AccessTokenGuard)
+  @Get('me')
+  me(@AuthUser() user: AuthUser) {
+    this.authService.me(+user['sub']);
   }
   @UseGuards(RefreshTokenGuard)
   @Post('refresh')

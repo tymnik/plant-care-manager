@@ -1,0 +1,66 @@
+enum Month {
+  January
+  February
+  March
+  April
+  May
+  June
+  July
+  August
+  September
+  October
+  November
+  December
+}
+
+enum Season {
+  Spring
+  Summer
+  Autumn
+  Winter
+}
+
+enum DayTime {
+  Morning
+  Afternoon
+  Evening
+  Night
+}
+
+enum WateringFrequency {
+  Frequent
+  Occasional
+  Infrequent
+  Rare
+}
+
+enum SunlightExposure {
+  FullSun
+  PartialShade
+  FullShade
+}
+
+enum HarvestMethod {
+  Cutting
+  Picking
+  Digging
+  Slicing
+  Pulling
+}
+
+enum GrowthRate {
+  High
+  Medium
+  Low
+  Slow
+}
+enum MaintenanceLevel {
+  High
+  Medium
+  Low
+}
+enum CareLevel {
+  High
+  Medium
+  Low
+}

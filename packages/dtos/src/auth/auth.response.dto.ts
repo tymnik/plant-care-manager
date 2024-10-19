@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { AuthResponse } from "@plant-care/types";
-export class AuthResponseDto implements AuthResponse {
+import { Auth } from "@plant-care/types";
+export class AuthResponseDto implements Auth.Response {
   @ApiProperty({
     type: String,
     description: "JWT access token used for accessing protected resources",
