@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv';
 
 const prisma = new PrismaClient();
 
-const fakerPlant = () => ({
+export const fakerPlant = () => ({
   name: faker.lorem.word(),
   scientificNames: [faker.lorem.word()],
   otherNames: [faker.lorem.word(), faker.lorem.word()],
