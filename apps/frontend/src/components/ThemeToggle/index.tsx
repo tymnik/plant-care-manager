@@ -1,28 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+import Icon from '../../ui/Icon';
 
 import styles from './index.module.scss';
 
-
 interface ThemeToggleProps {
     onThemeChange: (newDarkTheme: boolean) => void;
+    initialTheme: boolean;
 }
 
-const ThemeToggle = ({ onThemeChange }: ThemeToggleProps) => {
-    const savedTheme = localStorage.getItem('theme');
-    const [darkTheme, setDarkTheme] = useState(savedTheme === 'dark');
+const ThemeToggle = ({ onThemeChange, initialTheme }: ThemeToggleProps) => {
+    const [darkTheme, setDarkTheme] = useState(initialTheme);
 
     useEffect(() => {
-        const currentTheme = savedTheme || 'light';
-        document.body.setAttribute('data-theme', currentTheme);
-        setDarkTheme(currentTheme === 'dark');
-    }, [savedTheme]);
+        document.body.setAttribute('data-theme', darkTheme ? 'dark' : 'light');
+        localStorage.setItem('theme', darkTheme ? 'dark' : 'light');
+    }, [darkTheme]);
 
     const toggleTheme = () => {
-        const newDarkTheme = !darkTheme;
-        setDarkTheme(newDarkTheme);
-        onThemeChange(newDarkTheme);
-        document.body.setAttribute('data-theme', newDarkTheme ? 'dark' : 'light');
-        localStorage.setItem('theme', newDarkTheme ? 'dark' : 'light');
+        setDarkTheme(prev => {
+            const newTheme = !prev;
+            onThemeChange(newTheme);
+            return newTheme;
+        });
     };
 
     return (
@@ -34,6 +34,7 @@ const ThemeToggle = ({ onThemeChange }: ThemeToggleProps) => {
                 checked={darkTheme}
                 onChange={toggleTheme}
             />
+            <Icon id={darkTheme ? 'sun' : 'moon'} className={styles.toggle__icon} />
         </div>
     );
 };

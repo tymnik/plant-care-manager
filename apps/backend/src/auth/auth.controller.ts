@@ -41,6 +41,12 @@ export class AuthController {
   logout(@AuthUser() user: AuthUser) {
     this.authService.logout(+user['sub']);
   }
+  @ApiBearerAuth()
+  @UseGuards(AccessTokenGuard)
+  @Get('me')
+  me(@AuthUser() user: AuthUser) {
+    this.authService.me(+user['sub']);
+  }
   @UseGuards(RefreshTokenGuard)
   @Post('refresh')
   @ApiBody({ type: RefreshBodyDto })

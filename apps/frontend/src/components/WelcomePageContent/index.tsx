@@ -1,28 +1,16 @@
 import { Link } from 'react-router-dom'
 
+import { advantages, choiceItems } from '../../mock'
 import { ROUTES } from '../../constants/routes'
 import leafIcon from '../../assets/welcome-page-images/leaf.svg'
 
 import style from './index.module.scss'
 
-const texts = [
-    "Personalized Plant Collection",
-    "Comprehensive Plant Encyclopedia",
-    "Custom Care Schedules",
-    "User-Friendly Dashboard"
-]
-
-const choiceItems = [
-    { order: 1, text: "Easy to Use " },
-    { order: 2, text: "Detailed Plant Information " },
-    { order: 3, text: "Stay on Track " }
-]
-
 const WelcomePageContent = () => {
     return (
         <section className={style.wpc}>
             <ul className={style.wpc_advantages}>
-                {texts.map((text, index) => (
+                {advantages.map((text, index) => (
                     <li key={index} className={style.wpc_advantages__item}>
                         <img src={leafIcon} className={style.wpc_advantages__item__icon} />
                         <p className={style.wpc_advantages__item__text}>{text}</p>

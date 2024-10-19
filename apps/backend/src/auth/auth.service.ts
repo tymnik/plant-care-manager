@@ -16,6 +16,9 @@ export class AuthService {
     private jwtService: JwtService,
     private configService: ConfigService,
   ) {}
+  async me(userId: number) {
+    return this.usersService.user({ id: userId });
+  }
   hashData(data: string) {
     return argon2.hash(data);
   }
