@@ -1,10 +1,10 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { AuthService } from './auth.service';
-import { UserService } from '../user/user.service';
-import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
+import { Test, TestingModule } from '@nestjs/testing';
+import { User } from '@plant-care/types';
 import * as argon2 from 'argon2';
-import { Auth, User } from '@plant-care/types';
+import { UserService } from '../user/user.service';
+import { AuthService } from './auth.service';
 
 // Mock data and responses
 const mockUser: User = {
