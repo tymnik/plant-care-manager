@@ -27,11 +27,12 @@ export const loginUser = async ({ email, password }: LoginPropsType) => {
     email,
     password,
   });
+
   setToken(access);
 
   const user = await getUserById(id);
 
-  return { user, token: { refresh, id } };
+  return { user, token: { access, refresh, id } };
 };
 
 export const refreshUser = async ({
@@ -50,14 +51,14 @@ export const refreshUser = async ({
 };
 
 export const createUser = async (formData: FormData) => {
-  await axios.post("/???", formData);
+  await axios.post("auth/signup", formData);
   return true;
 };
 
 export const getUserById = async (id: UserId): Promise<User> => {
-  const {
-    data: { firstName, lastName, email },
-  } = await axios.get(`/???${id}/`);
+  const { data } = await axios.get(`/users/${id}`);
+
+  const { firstName, lastName, email } = data;
 
   return {
     firstName,
