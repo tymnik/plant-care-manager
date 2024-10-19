@@ -1,0 +1,41 @@
+model Plant {
+    id Int @id @default(autoincrement())
+    name String
+    scientificNames String[]
+    otherNames String[]
+    images String[]
+    cycle String
+    watering WateringFrequency
+    depthWaterRequirement String
+    volumeWaterRequirement String
+    wateringPeriod DayTime
+    wateringGeneralBenchmark String
+    sunlight SunlightExposure[]
+    pruningMonths Month[]
+    pruningCount String
+    flowers Boolean
+    floweringSeason Season?
+    fruits Boolean
+    cones Boolean
+    fruitingSeasons Season[]
+    harvestSeasons Season[]
+    harvestMethods HarvestMethod?
+    leaf Boolean
+    growthRate GrowthRate?
+    maintenance MaintenanceLevel
+    medicinal Boolean
+    edibleLeaf Boolean
+    poisonousToHumans Boolean
+    poisonousToPets Boolean
+    droughtTolerant Boolean
+    saltTolerant Boolean
+    thorny Boolean
+    invasive Boolean
+    cuisine Boolean
+    indoor Boolean
+    careLevel CareLevel
+    rareLevel String
+    rare Boolean
+    description String
+}
+

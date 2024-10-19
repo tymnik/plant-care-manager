@@ -4,6 +4,7 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "module": "CommonJS",
+    "target": "ES6",
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "rootDir": "src",

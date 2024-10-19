@@ -1,7 +1,13 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { User } from "@prisma/client";
 import { Exclude, Expose } from "class-transformer";
-import { IsEmail, IsNumber, IsString, IsStrongPassword } from "class-validator";
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsStrongPassword,
+} from "class-validator";
 export class UserDto implements User {
   @Exclude()
   refreshToken!: string | null;
@@ -29,20 +35,23 @@ export class UserDto implements User {
   @IsString()
   @Expose()
   email!: string;
-
+  @IsNotEmpty()
   @ApiProperty({
     description: "Password of the user",
     writeOnly: true,
     type: String,
   })
-  @Exclude()
   @IsStrongPassword({
     minLength: 8,
-    minUppercase: 1,
     minSymbols: 1,
+    minUppercase: 1,
     minNumbers: 1,
     minLowercase: 1,
   })
-  @IsString()
+  @Expose()
   password!: string;
 }
+// class UserResponseDto extends UserDto {
+//   @Exclude()
+//   password!: string;
+// }

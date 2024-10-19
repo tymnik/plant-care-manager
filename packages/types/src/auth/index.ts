@@ -1,3 +1,7 @@
-export type { AuthResponse } from "./response";
-export type { RegisterBody } from "./register.body";
-export type { LoginBody } from "./login.body";
+import { AuthResponse } from "./response";
+
+export namespace Auth {
+  export type Response = AuthResponse;
+  export type RegisterBody = any;
+  export type LoginBody = any;
+}
