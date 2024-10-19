@@ -17,7 +17,7 @@ export class AuthService {
     private configService: ConfigService,
   ) {}
   async me(userId: number) {
-    return this.usersService.user({ id: userId });
+    return this.usersService.findOne({ id: userId });
   }
   hashData(data: string) {
     return argon2.hash(data);
