@@ -6,6 +6,7 @@
   --primary-text-color: #131313;
   --secondary-text-color: #3e3e3d;
   --primary-item-color: #3e3e3d;
+  --primary-error-color: #ca0f0f;
 }
 
 //dark-mode
@@ -16,6 +17,7 @@
   --primary-text-color: #f2f2f2;
   --secondary-text-color: #d2d2d2;
   --primary-item-color: #fefae0;
+  --primary-error-color: #ce322d;
 }
 
 //constant
@@ -24,7 +26,7 @@ $secondary-green: #b6e892;
 $tertiary-green: #9be665;
 $white: #fff;
 $grey: #cacaca;
-$red: #fa0000;
+$red: #ca0f0f;
 $black: #131313;
 $orange: #ff5c00;
 $primary-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);

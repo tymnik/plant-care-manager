@@ -25,6 +25,21 @@
   }
 }
 
+.errorInput {
+  border-bottom: 1px solid var( --primary-error-color);
+ }
+
+.errorText {
+  width: 100%;
+  padding: 4px;
+  border-radius: 8px;
+  box-shadow: inset $secondary-shadow;
+  font-size: 12px;
+  font-weight: $light;
+  color: var( --primary-error-color);
+  background-color: var(--primary-bg);
+}
+
 @media screen and (min-width: $tablet) {
   .input {
     padding: 8px 12px;
