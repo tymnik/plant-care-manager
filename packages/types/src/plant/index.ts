@@ -3,7 +3,7 @@ import { Prisma, Plant as PrismaPlant } from "@prisma/client";
 export type Plant = PrismaPlant;
 export namespace Plant {
   export namespace Inputs {
-    export type Create = Prisma.PlantUpdateInput;
+    export type Create = Prisma.PlantCreateInput;
     export type Update = Prisma.PlantUpdateInput;
   }
   export namespace Args {
