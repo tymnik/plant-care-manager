@@ -62,7 +62,7 @@ export const createUser = async (data: SignUpPropsType) => {
 export const fetchCurrentUser = async (): Promise<User> => {
   const accessToken = localStorage.getItem("accessToken");
 
-  const { data } = await axios.get("/auth/me", {
+  const { data } = await axios.get("/user/me", {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
