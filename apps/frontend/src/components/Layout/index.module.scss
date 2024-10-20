@@ -1,0 +1,60 @@
+@import "../../styles/vars";
+
+.customContainer {
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.logo {
+  margin: 0 auto 24px;
+  height: 52px;
+  width: 52px;
+  fill: var(--primary-item-color);
+  transition: all $transition;
+  &:hover {
+    scale: 1.1;
+  }
+}
+
+.homeButton {
+  width: 20px;
+  height: 20px;
+  fill: var(--primary-text-color);
+}
+
+@media screen and (min-width: $tablet) {
+  .customContainer {
+    max-width: 600px;
+    padding: 36px;
+  }
+
+  .logo {
+    height: 56px;
+    width: 56px;
+    margin: 0 auto 36px;
+  }
+
+  .homeButton {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media screen and (min-width: $desktop) {
+  .customContainer {
+    max-width: 800px;
+    padding: 48px;
+  }
+
+  .logo {
+    height: 64px;
+    width: 64px;
+    margin: 0 auto 48px;
+  }
+
+  .homeButton {
+    width: 28px;
+    height: 28px;
+  }
+}
