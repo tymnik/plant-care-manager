@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 
 import {
-  getUserById,
+  fetchCurrentUser,
   loginUser,
   refreshUser,
   registerUser,
@@ -52,11 +52,11 @@ export const login = createAsyncThunk<
 
 export const getCurrentUser = createAsyncThunk<
   Pick<UserState, "user">,
-  UserId,
+  void,
   { rejectValue: string }
->("auth/current", async (userId, thunkAPI) => {
+>("auth/me", async (_, thunkAPI) => {
   try {
-    const user = await getUserById(userId);
+    const user = await fetchCurrentUser();
     return { user };
   } catch (err) {
     const error = err as AxiosError<ErrorResponse>;

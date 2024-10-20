@@ -32,9 +32,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
                     className={clsx(style.input, errorInputStyles)}
                     {...rest}
                 />
-                {icon}
+                {icon && <span className={style.input__icon}>{icon}</span>}
+                {error && <p className={style.errorText}>{error}</p>}
             </div>
-            {error && <p className={style.errorText}>{error}</p>}
         </>
     );
 });

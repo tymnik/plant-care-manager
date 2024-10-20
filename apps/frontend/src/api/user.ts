@@ -3,36 +3,34 @@ import axios from "axios";
 import { LoginPropsType, SignUpPropsType } from "../schemas";
 import { getAccessToken, getUserToken, setToken } from ".";
 import { User } from "../types";
-import { createFormData } from "../utils";
 
 type UserId = string | number;
 
 export const registerUser = async (credentials: SignUpPropsType) => {
-  const { email, password, ...rest } = credentials;
-  const formData = createFormData({ data: { ...rest, email, password } });
+  await createUser(credentials);
 
-  await createUser(formData);
-
-  const user = await loginUser({ email, password });
+  const user = await loginUser({
+    email: credentials.email,
+    password: credentials.password,
+  });
 
   return user;
 };
 
 export const loginUser = async ({ email, password }: LoginPropsType) => {
-  const {
-    access,
-    refresh,
-    user_id: id,
-  } = await getUserToken({
+  const { access, refresh } = await getUserToken({
     email,
     password,
   });
 
   setToken(access);
 
-  const user = await getUserById(id);
+  localStorage.setItem("accessToken", access);
+  localStorage.setItem("refreshToken", refresh);
 
-  return { user, token: { access, refresh, id } };
+  const user = await fetchCurrentUser();
+
+  return { user, token: { access, refresh } };
 };
 
 export const refreshUser = async ({
@@ -45,21 +43,32 @@ export const refreshUser = async ({
   const { access } = await getAccessToken(refresh);
   setToken(access);
 
-  const user = await getUserById(id);
+  localStorage.setItem("accessToken", access);
+
+  const user = await fetchCurrentUser();
 
   return { user, token: { refresh, id } };
 };
 
-export const createUser = async (formData: FormData) => {
-  await axios.post("auth/signup", formData);
+export const createUser = async (data: SignUpPropsType) => {
+  await axios.post("/auth/signup", data, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   return true;
 };
 
-export const getUserById = async (id: UserId): Promise<User> => {
-  const { data } = await axios.get(`/users/${id}`);
+export const fetchCurrentUser = async (): Promise<User> => {
+  const accessToken = localStorage.getItem("accessToken");
+
+  const { data } = await axios.get("/auth/me", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 
   const { firstName, lastName, email } = data;
-
   return {
     firstName,
     lastName,

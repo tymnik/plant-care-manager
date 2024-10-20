@@ -5,17 +5,23 @@ import { LoginPropsType } from "../schemas";
 type TokenResponseType = {
   access: string;
   refresh: string;
-  user_id: string | number;
 };
 
 export const getUserToken = async (credentials: LoginPropsType) => {
-  const { data } = await axios.post("/auth/token", credentials);
-  return data as TokenResponseType;
+  const { data } = await axios.post("/auth/login", credentials);
+
+  const { access_token, refresh_token } = data;
+  return {
+    access: access_token,
+    refresh: refresh_token,
+  } as TokenResponseType;
 };
 
 export const getAccessToken = async (refreshToken: string) => {
   const { data } = await axios.post("/auth/refresh", {
     refresh: refreshToken,
   });
-  return data as Pick<TokenResponseType, "access">;
+ 
+  const { access_token } = data;
+  return { access: access_token } as Pick<TokenResponseType, "access">;
 };

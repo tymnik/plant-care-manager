@@ -2,21 +2,27 @@
 
 .inputContainer {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 16px;
   width: 100%;
+  position: relative;
 }
 
 .input {
-  background-color: transparent;
+  background-color: var(--primary-bg);
   border: none;
-  border-bottom: 1px solid var(--secondary-text-color);
   box-sizing: border-box;
   width: 100%;
   padding: 4px 8px;
   outline: none;
   font-size: 14px;
   color: var(--primary-text-color);
+  border-radius: 8px;
+  &__icon {
+    position: absolute;
+    top: 2px;
+    right: 12px;
+  }
   &::placeholder {
     font-size: 14px;
     font-weight: $light;
@@ -26,17 +32,16 @@
 }
 
 .errorInput {
-  border-bottom: 1px solid var( --primary-error-color);
- }
+  border-radius: 8px 8px 0 0;
+}
 
 .errorText {
   width: 100%;
-  padding: 4px;
-  border-radius: 8px;
-  box-shadow: inset $secondary-shadow;
+  padding: 4px 8px;
+  border-radius: 0 0 8px 8px;
   font-size: 12px;
   font-weight: $light;
-  color: var( --primary-error-color);
+  color: var(--primary-error-color);
   background-color: var(--primary-bg);
 }
 
@@ -47,6 +52,13 @@
     &::placeholder {
       font-size: 18px;
     }
+    &__icon {
+      top: 6px;
+    }
+  }
+
+  .errorText {
+    padding: 4px 12px;
   }
 }
 
@@ -57,5 +69,13 @@
     &::placeholder {
       font-size: 20px;
     }
+    &__icon {
+      top: 10px;
+      right: 16px;
+    }
+  }
+
+  .errorText {
+    padding: 4px 16px;
   }
 }

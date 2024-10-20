@@ -27,7 +27,7 @@ const SignUpForm = () => {
   } = useForm<SignUpPropsType>({
     resolver: yupResolver(signupSchema),
   });
-
+  
   const onSubmit: SubmitHandler<SignUpPropsType> = async (data) => {
     await dispatch(signup(data)).unwrap();
 
