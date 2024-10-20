@@ -9,7 +9,7 @@ import { BasePrismaCrudService } from 'src/shared/classes/BasePrismaCrudService'
   providers: [
     {
       provide: 'model',
-      useValue: 'user',
+      useValue: 'plant',
     },
     BasePrismaCrudService,
     PlantService,
