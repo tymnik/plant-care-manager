@@ -46,7 +46,7 @@ export class BaseCrudController<
       data: updatePlantDto,
     });
   }
-  remove(params: IdPathParams): Promise<T> {
+  delete(params: IdPathParams): Promise<T> {
     return this.baseCrudService.delete({ id: params?.id });
   }
 }

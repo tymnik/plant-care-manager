@@ -18,9 +18,10 @@ import { UserService } from './user.service';
 @Controller('user')
 @ApiTags('User')
 @UseInterceptors(ClassSerializerInterceptor)
+@ApiBearerAuth()
 export class UserController {
   constructor(private readonly userService: UserService) {}
-  @ApiBearerAuth()
+
   @UseGuards(AccessTokenGuard)
   @Get('me')
   @HttpCode(HttpStatus.OK)
@@ -35,10 +36,12 @@ export class UserController {
     return await this.userService.me(+user['sub']);
   }
   @Get('me/tending-plants')
+  @UseGuards(AccessTokenGuard)
   myTendingPlants() {
     throw new NotImplementedException();
   }
   @Get(':userId/tending-plants')
+  @UseGuards(AccessTokenGuard)
   tendingPlants() {
     throw new NotImplementedException();
   }

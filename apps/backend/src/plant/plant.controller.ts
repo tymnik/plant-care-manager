@@ -7,8 +7,9 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   FindManyDto,
   PaginationDto,
@@ -18,12 +19,14 @@ import {
   PlantUpdateBodyDto,
 } from '@plant-care/dtos';
 import { BaseCrudController } from 'src/shared/classes/BaseCrudController';
-import { Pagination } from 'src/shared/classes/pagination';
 import { ApiOkResponsePaginated } from 'src/shared/decorators/api-ok-response-paginated.decorator';
 import { PlantService } from './plant.service';
+import { AccessTokenGuard } from 'src/auth/guards/access-token.guard';
 
 @Controller('plant')
 @ApiTags('Plant')
+@ApiBearerAuth()
+@UseGuards(AccessTokenGuard)
 export class PlantController extends BaseCrudController<
   PlantResponseDto,
   PlantCreateBodyDto,
@@ -58,7 +61,7 @@ export class PlantController extends BaseCrudController<
     return super.update(params, body);
   }
   @Delete(':id')
-  remove(params: PlantIdPathParamsDto): Promise<PlantResponseDto> {
-    return super.remove(params);
+  delete(params: PlantIdPathParamsDto): Promise<PlantResponseDto> {
+    return super.delete(params);
   }
 }
