@@ -7,7 +7,6 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
-type AuthorizedRequest = Express.Request & { authorization: string };
 @Injectable()
 export class AccessTokenGuard extends AuthGuard('jwt') implements CanActivate {
   constructor(
@@ -30,7 +29,8 @@ export class AccessTokenGuard extends AuthGuard('jwt') implements CanActivate {
       // 💡 We're assigning the payload to the request object here
       // so that we can access it in our route handlers
       request['user'] = payload;
-    } catch {
+    } catch (err) {
+      console.log(err);
       throw new UnauthorizedException();
     }
     return true;

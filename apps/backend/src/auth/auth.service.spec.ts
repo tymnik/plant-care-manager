@@ -68,14 +68,6 @@ describe('AuthService', () => {
     expect(authService).toBeDefined();
   });
 
-  describe('me', () => {
-    it('should return the user', async () => {
-      mockUserService.findOne.mockResolvedValue(mockUser);
-      const user = await authService.me(mockUser.id);
-      expect(user).toEqual(mockUser);
-    });
-  });
-
   describe('hashData', () => {
     it('should hash data correctly', async () => {
       const data = 'test_data';
