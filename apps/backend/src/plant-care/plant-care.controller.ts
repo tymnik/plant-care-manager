@@ -48,7 +48,6 @@ export class PlantCareController extends BaseCrudController<
   ): Promise<PlantCareResponseDto> {
     return super.create(createPlantDto);
   }
-
   @Get()
   @ApiOkResponsePaginated(PlantCareResponseDto)
   async findAll(

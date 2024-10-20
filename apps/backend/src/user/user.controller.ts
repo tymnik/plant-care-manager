@@ -5,12 +5,19 @@ import {
   HttpCode,
   HttpStatus,
   NotImplementedException,
+  Param,
   SerializeOptions,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiResponse, ApiTags, OmitType } from '@nestjs/swagger';
-import { UserDto } from '@plant-care/dtos';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiResponse,
+  ApiTags,
+  OmitType,
+} from '@nestjs/swagger';
+import { UserDto, UserWithPlantsDto } from '@plant-care/dtos';
 import { AuthUser } from 'src/auth/decorators/user.decorator';
 import { AccessTokenGuard } from 'src/auth/guards/access-token.guard';
 import { UserService } from './user.service';
@@ -36,13 +43,16 @@ export class UserController {
     return await this.userService.me(+user['sub']);
   }
   @Get('me/tending-plants')
+  @ApiOkResponse({ type: UserWithPlantsDto })
   @UseGuards(AccessTokenGuard)
-  myTendingPlants() {
+  myTendingPlants(@AuthUser() user: AuthUser): Promise<UserWithPlantsDto> {
+    return this.userService.findTendingPlants(+user['sub']);
     throw new NotImplementedException();
   }
   @Get(':userId/tending-plants')
+  @ApiOkResponse({ type: UserWithPlantsDto })
   @UseGuards(AccessTokenGuard)
-  tendingPlants() {
-    throw new NotImplementedException();
+  tendingPlants(@Param('id') id: string) {
+    return this.userService.findTendingPlants(+id);
   }
 }
