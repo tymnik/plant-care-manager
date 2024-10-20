@@ -101,6 +101,12 @@ describe('UserService', () => {
       });
     });
   });
+  describe('me', () => {
+    it('should return the user', async () => {
+      const user = await userService.me(mockUser.id);
+      expect(user).toEqual(mockUser);
+    });
+  });
 
   describe('findByEmail', () => {
     it('should find a user by email', async () => {

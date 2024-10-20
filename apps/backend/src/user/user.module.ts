@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { BasePrismaCrudService } from 'src/shared/classes/BasePrismaCrudService';
 import { UserService } from './user.service';
+import { UserController } from './user.controller';
+import { ConfigModule } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   providers: [
@@ -12,7 +15,8 @@ import { UserService } from './user.service';
     BasePrismaCrudService,
     UserService,
   ],
-  imports: [PrismaModule],
+  imports: [PrismaModule, ConfigModule, JwtModule.register({})],
   exports: [UserService],
+  controllers: [UserController],
 })
 export class UserModule {}

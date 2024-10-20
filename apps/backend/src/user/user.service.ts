@@ -22,4 +22,7 @@ export class UserService
   async findByEmail(email: string) {
     return await this.findOne({ email });
   }
+  async me(userId: number): Promise<User> {
+    return await this.findOne({ id: userId });
+  }
 }

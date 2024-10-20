@@ -9,8 +9,9 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
+  AuthResponseDto,
   LoginBodyDto,
   RefreshBodyDto,
   RegisterBodyDto,
@@ -27,30 +28,43 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('/login')
   @HttpCode(HttpStatus.OK)
-  login(@Body() body: LoginBodyDto) {
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: AuthResponseDto,
+  })
+  login(@Body() body: LoginBodyDto): Promise<AuthResponseDto> {
     return this.authService.login(body);
   }
   @HttpCode(HttpStatus.CREATED)
   @Post('/signup')
-  signup(@Body() body: RegisterBodyDto) {
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: AuthResponseDto,
+  })
+  signup(@Body() body: RegisterBodyDto): Promise<AuthResponseDto> {
     return this.authService.signup(body);
   }
   @ApiBearerAuth()
   @UseGuards(AccessTokenGuard)
   @Get('logout')
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: AuthResponseDto,
+  })
   logout(@AuthUser() user: AuthUser) {
     this.authService.logout(+user['sub']);
-  }
-  @ApiBearerAuth()
-  @UseGuards(AccessTokenGuard)
-  @Get('me')
-  me(@AuthUser() user: AuthUser) {
-    this.authService.me(+user['sub']);
   }
   @UseGuards(RefreshTokenGuard)
   @Post('refresh')
   @ApiBody({ type: RefreshBodyDto })
-  refreshTokens(@AuthUser() user: AuthUser) {
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: AuthResponseDto,
+  })
+  refreshTokens(@AuthUser() user: AuthUser): Promise<AuthResponseDto> {
     const userId = user['sub'];
     const refreshToken = user['refreshToken'];
     return this.authService.refreshTokens(+userId, refreshToken);

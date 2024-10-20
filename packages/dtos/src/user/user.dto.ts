@@ -1,3 +1,4 @@
+import { SerializeOptions } from "@nestjs/common";
 import { ApiProperty } from "@nestjs/swagger";
 import { User } from "@prisma/client";
 import { Exclude, Expose } from "class-transformer";
@@ -8,6 +9,7 @@ import {
   IsString,
   IsStrongPassword,
 } from "class-validator";
+@SerializeOptions({ type: UserDto })
 export class UserDto implements User {
   @Exclude()
   refreshToken!: string | null;
@@ -48,10 +50,9 @@ export class UserDto implements User {
     minNumbers: 1,
     minLowercase: 1,
   })
-  @Expose()
+  @Exclude({ toPlainOnly: true })
   password!: string;
+  constructor(partial: Partial<UserDto>) {
+    Object.assign(this, partial);
+  }
 }
-// class UserResponseDto extends UserDto {
-//   @Exclude()
-//   password!: string;
-// }
