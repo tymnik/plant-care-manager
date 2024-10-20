@@ -5,4 +5,5 @@ model User {
   email String @unique()
   password String 
   refreshToken String?
+  plantCare UserPlantCare[]
 }
