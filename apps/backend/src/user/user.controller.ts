@@ -4,7 +4,6 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  NotImplementedException,
   Param,
   SerializeOptions,
   UseGuards,
@@ -18,9 +17,11 @@ import {
   OmitType,
 } from '@nestjs/swagger';
 import { UserDto, UserWithPlantsDto } from '@plant-care/dtos';
+// import { PlantCareDto } from '@plant-care/dtos';
 import { AuthUser } from 'src/auth/decorators/user.decorator';
 import { AccessTokenGuard } from 'src/auth/guards/access-token.guard';
 import { UserService } from './user.service';
+import { PlantCareResponseDto } from '@plant-care/dtos';
 
 @Controller('user')
 @ApiTags('User')
@@ -42,17 +43,16 @@ export class UserController {
   async me(@AuthUser() user: AuthUser): Promise<UserDto> {
     return await this.userService.me(+user['sub']);
   }
-  @Get('me/tending-plants')
-  @ApiOkResponse({ type: UserWithPlantsDto })
+  @Get('me/plants')
+  @ApiOkResponse({ type: [PlantCareResponseDto] })
   @UseGuards(AccessTokenGuard)
-  myTendingPlants(@AuthUser() user: AuthUser): Promise<UserWithPlantsDto> {
+  myTendingPlants(@AuthUser() user: AuthUser): Promise<PlantCareResponseDto[]> {
     return this.userService.findTendingPlants(+user['sub']);
-    throw new NotImplementedException();
   }
-  @Get(':userId/tending-plants')
+  @Get(':id/plants')
   @ApiOkResponse({ type: UserWithPlantsDto })
   @UseGuards(AccessTokenGuard)
-  tendingPlants(@Param('id') id: string) {
+  tendingPlants(@Param('id') id: string): Promise<PlantCareResponseDto[]> {
     return this.userService.findTendingPlants(+id);
   }
 }

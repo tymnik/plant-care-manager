@@ -5,4 +5,9 @@ model UserPlantCare {
   user    User    @relation(fields: [userId], references: [id])
   userId  Int
   lastWateringTime DateTime?
+  label String
+  primarImage String
+  images String[]
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt()
 }

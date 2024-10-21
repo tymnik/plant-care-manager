@@ -38,6 +38,8 @@ model Plant {
     rare Boolean
     description String
     usersPlantCare UserPlantCare[]
+      createAt DateTime @default(now())
+  updateAt DateTime @updatedAt()
 }
 
 

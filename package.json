@@ -8,6 +8,7 @@
   "main": "index.js",
   "dependencies": {
     "@nestjs/swagger": "^7.4.2",
+    "dayjs": "^1.11.13",
     "turbo-windows-64": "^2.1.3"
   },
   "scripts": {

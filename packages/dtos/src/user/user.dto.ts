@@ -11,6 +11,20 @@ import {
 } from "class-validator";
 @SerializeOptions({ type: UserDto })
 export class UserDto implements User {
+  @Expose()
+  @ApiProperty({
+    type: Date,
+    description: "Date of the create",
+    example: new Date(),
+  })
+  createAt!: Date;
+  @Expose()
+  @ApiProperty({
+    type: Date,
+    description: "Date of the last update",
+    example: new Date(),
+  })
+  updateAt!: Date;
   @Exclude()
   refreshToken!: string | null;
   @ApiProperty({ description: "Unique identifier of the user", type: Number })

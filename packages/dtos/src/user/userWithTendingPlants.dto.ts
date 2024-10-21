@@ -8,6 +8,8 @@ export class UserWithPlantsDto
   extends PickType(UserDto, ["id"] as const)
   implements User.Response.WithPlantCare
 {
+  createAt!: Date;
+  updateAt!: Date;
   @Exclude()
   refreshToken!: string | null;
   @Exclude()

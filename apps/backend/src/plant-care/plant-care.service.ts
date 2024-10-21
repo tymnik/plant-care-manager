@@ -15,4 +15,7 @@ export class PlantCareService extends BasePrismaCrudService<
   constructor(protected prisma: PrismaService) {
     super(prisma, 'userPlantCare');
   }
+  findManyByUserId(userId: number) {
+    this.findMany({ where: { userId } });
+  }
 }

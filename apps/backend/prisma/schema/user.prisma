@@ -6,4 +6,6 @@ model User {
   password String 
   refreshToken String?
   plantCare UserPlantCare[]
+    createAt DateTime @default(now())
+  updateAt DateTime @updatedAt()
 }

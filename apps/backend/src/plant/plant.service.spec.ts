@@ -3,6 +3,7 @@ import { PlantService } from './plant.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { Plant } from '@plant-care/types';
 import { faker } from '@faker-js/faker/.';
+import dayjs = require('dayjs');
 export const fakerPlant = () => ({
   name: faker.lorem.word(),
   scientificNames: [faker.lorem.word()],
@@ -119,16 +120,22 @@ describe('PlantService', () => {
     prismaService = module.get<PrismaService>(PrismaService);
 
     mockPlant = {
-      id: 1,
+      id: 3,
+      createAt: dayjs('2008-02-02').toDate(),
+      updateAt: dayjs('2008-02-02').toDate(),
       ...fakerPlant(),
     };
     mockPlants = [
       {
         id: 2,
+        createAt: dayjs('2008-02-02').toDate(),
+        updateAt: dayjs('2008-02-02').toDate(),
         ...fakerPlant(),
       },
       {
         id: 1,
+        createAt: dayjs('2008-02-02').toDate(),
+        updateAt: dayjs('2008-02-02').toDate(),
         ...fakerPlant(),
       },
     ];
@@ -153,6 +160,8 @@ describe('PlantService', () => {
     it('should find a plant by id', async () => {
       const mockPlant: Plant = {
         id: 1,
+        createAt: dayjs('2008-02-02').toDate(),
+        updateAt: dayjs('2008-02-02').toDate(),
         ...fakerPlant(),
       };
       mockPrismaService.plant.findUnique.mockResolvedValue(mockPlant);
@@ -196,6 +205,8 @@ describe('PlantService', () => {
       };
       const mockCreatedPlant: Plant = {
         id: 3,
+        createAt: dayjs('2008-02-02').toDate(),
+        updateAt: dayjs('2008-02-02').toDate(),
         ...data,
       };
       mockPrismaService.plant.create.mockResolvedValue(mockCreatedPlant);
@@ -221,6 +232,8 @@ describe('PlantService', () => {
       };
       const mockUpdatedPlant: Plant = {
         id: plantIdToUpdate,
+        createAt: dayjs('2008-02-02').toDate(),
+        updateAt: dayjs('2008-02-02').toDate(),
         ...fakerPlant(),
         name: 'Updated Plant Name',
       };
@@ -241,6 +254,8 @@ describe('PlantService', () => {
       const plantIdToDelete = 1;
       const mockDeletedPlant: Plant = {
         id: plantIdToDelete,
+        createAt: dayjs('2008-02-02').toDate(),
+        updateAt: dayjs('2008-02-02').toDate(),
         ...fakerPlant(),
       };
       mockPrismaService.plant.delete.mockResolvedValue(mockDeletedPlant);

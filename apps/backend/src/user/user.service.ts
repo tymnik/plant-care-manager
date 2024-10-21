@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '@plant-care/types';
+import { PlantCare, User } from '@plant-care/types';
 import { PlantCareService } from 'src/plant-care/plant-care.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { BasePrismaCrudService } from 'src/shared/classes/BasePrismaCrudService';
 import { ICRUDService } from 'src/shared/interfaces/crud/service/ICRUD';
 import { Prisma } from '@prisma/client';
+import { PlantCareDto } from '@plant-care/dtos/dist/plant-care/dto';
 
 @Injectable()
 export class UserService
@@ -30,12 +31,7 @@ export class UserService
   async me(userId: number): Promise<User> {
     return await this.findOne({ id: userId });
   }
-  async findTendingPlants(id: number): Promise<User.Response.WithPlantCare> {
-    return await this.prisma.user.findUnique({
-      where: { id },
-      include: {
-        plantCare: true,
-      },
-    });
+  async findTendingPlants(id: number): Promise<PlantCare[]> {
+    return await this.plantCareService.findMany({ where: { userId: id } });
   }
 }
