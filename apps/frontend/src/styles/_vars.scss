@@ -1,11 +1,16 @@
 :root {
   // colors
   --primary-bg: #fefae0;
-  --secondary-bg: #e8f4b5;
-  --accent-bg: #e8f4b5;
+  --secondary-bg: #fa9500;
+  --tertiary-bg: #d6eadf;
+  --accent-color: #fefae0;
+  --primary-accent-bg: #ffb627;
+  --secondary-accent-bg: #fcf6bd;
+  --tertiary-accent-bg: #fb8500;
   --primary-text-color: #131313;
   --secondary-text-color: #3e3e3d;
-  --primary-item-color: #3e3e3d;
+  --tertiary-text-color: #0d0628;
+  --primary-item-color: #0d0628;
   --primary-error-color: #ca0f0f;
 }
 
@@ -13,23 +18,26 @@
 [data-theme="dark"] {
   --primary-bg: #3e3e3d;
   --secondary-bg: #5a5b4f;
-  --accent-bg: #fefae0;
+  --tertiary-bg: #a0a071;
+  --accent-color: #dddd80;
+  --primary-accent-bg: #dddd80;
+  --secondary-accent-bg: #fcf6bd;
+  --tertiary-accent-bg: #fb8500;
   --primary-text-color: #f2f2f2;
   --secondary-text-color: #d2d2d2;
+  --tertiary-text-color: #131313;
   --primary-item-color: #fefae0;
   --primary-error-color: #fa3831;
 }
 
 //constant
-$primary-green: #e8f4b5;
-$secondary-green: #b6e892;
-$tertiary-green: #9be665;
 $white: #fff;
 $grey: #cacaca;
 $black: #131313;
 $orange: #ff5c00;
-$primary-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+$primary-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 $secondary-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+$tertiary-shadow: 2px 2px 5px rgba(95, 94, 94, 0.7);
 
 // breakpoints
 $mobile: 320px;
