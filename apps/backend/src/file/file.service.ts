@@ -1,47 +1,95 @@
-import { BadGatewayException, Injectable } from '@nestjs/common';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import {
+  BadGatewayException,
+  forwardRef,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { File } from '@plant-care/types';
 import { extname } from 'path';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { BasePrismaCrudService } from 'src/shared/classes/BasePrismaCrudService';
+import { S3Service } from './s3.service';
+import { SharpService } from './sharp.service';
+import { he } from '@faker-js/faker/.';
+
+const sharp = require('sharp');
 @Injectable()
-export class FileService {
-  client: S3Client;
-  bucketName: string;
-  constructor(private readonly configService: ConfigService) {
-    this.client = new S3Client({
-      endpoint:
-        configService.get('NODE_ENV') === 'development' &&
-        'http://localhost:9000',
-      region: configService.get<string>('AWS_REGION'),
-      credentials: {
-        accessKeyId: configService.get<string>('AWS_ACCESS_KEY_ID'),
-        secretAccessKey: configService.get<string>('AWS_SECRET_ACCESS_KEY'),
-      },
-      forcePathStyle: true,
+export class FileService extends BasePrismaCrudService<
+  File,
+  File.Args.Create,
+  File.Args.FindMany,
+  File.Args.FindOne,
+  File.Args.Delete,
+  File.Args.Update
+> {
+  constructor(
+    protected prisma: PrismaService,
+    @Inject(forwardRef(() => S3Service))
+    private readonly s3Service: S3Service,
+    @Inject(forwardRef(() => SharpService))
+    private readonly sharpService: SharpService,
+  ) {
+    super(prisma, 'file');
+  }
+  async uploadPlantPhoto(file: Express.Multer.File, plantId: string) {
+    const folder = `admin/uploads/plant/${plantId}/${this.createUniqueName()}`;
+    const scales = [
+      { width: 200, height: 200 },
+      { width: 400, height: 400 },
+      { width: 800, height: 800 },
+      { width: 1024, height: 1024 },
+      { width: 1280, height: 720 }, // 720p
+      { width: 1920, height: 1080 }, // 1080p
+    ];
+    const resizedImgBuffers = await Promise.all(
+      scales.map(async ({ width, height }) => ({
+        [`${width}x${height}`]: await this.sharpService.resizeOne(
+          file,
+          width,
+          height,
+        ),
+      })),
+    );
+    const sizes = (
+      await Promise.all([
+        {
+          original: await this.s3Service.upload(
+            file.buffer,
+            `${folder}/original`,
+            file.mimetype,
+          ),
+        },
+        ...resizedImgBuffers.map(async (obj) => {
+          for (const [key, buffer] of Object.entries(obj)) {
+            return {
+              [`${key}`]: await this.s3Service.upload(
+                buffer,
+                `admin/uploads/plant/${plantId}/${key}`,
+                file.mimetype,
+              ),
+            };
+          }
+        }),
+      ])
+    ).reduce((acc, cur) => ({ ...acc, ...cur }), {});
+    return await super.create({
+      name: file.filename,
+      path: folder,
+      original: sizes['original'],
+      scales: sizes,
+      isAdminContent: true,
     });
   }
-  createUniqueName(ext: string): string {
+  private createUniqueName(): string {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    return `${uniqueSuffix}${ext}`;
-  }
-  getFileUrlByName(filename: string) {
-    return this.configService.get('NODE_ENV') === 'development'
-      ? `http://localhost:9000/${this.bucketName}/${filename}`
-      : `https://${this.bucketName}.${this.configService.get<string>('AWS_REGION')}.s3.amazonaws.com/${filename}`;
+    return `${uniqueSuffix}`;
   }
   async uploadFile(file: Express.Multer.File) {
-    const ext = extname(file.originalname);
-    const filename = this.createUniqueName(ext);
-    const command = new PutObjectCommand({
-      Bucket: this.bucketName,
-      Key: filename,
-      Body: file.buffer,
-      ContentType: file.mimetype,
-    });
-    try {
-      await this.client.send(command);
-    } catch (err) {
-      throw new BadGatewayException('Can`t save file to storage', err);
-    }
-    return this.getFileUrlByName(filename);
+    const scaledUrls = await this.uploadPlantPhoto(file, 'dsadsad');
+    // super.create({
+    //   original: scaledUrls[0],
+    // });
   }
 }

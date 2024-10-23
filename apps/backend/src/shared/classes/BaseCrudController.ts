@@ -6,7 +6,7 @@ import { Pagination } from './pagination';
 export class BaseCrudController<
   T,
   Create,
-  IdPathParams extends { id: number },
+  IdPathParams extends { id: string },
   UpdateBody,
 > {
   constructor(

@@ -1,9 +1,9 @@
 model Plant {
-    id Int @id @default(autoincrement())
+    id String @id @default(uuid())
     name String
     scientificNames String[]
     otherNames String[]
-    images String[]
+    images File[]
     cycle String
     watering WateringFrequency
     depthWaterRequirement String
@@ -38,8 +38,8 @@ model Plant {
     rare Boolean
     description String
     usersPlantCare UserPlantCare[]
-      createAt DateTime @default(now())
-  updateAt DateTime @updatedAt()
+    createAt DateTime @default(now())
+    updateAt DateTime @updatedAt()
 }
 
 

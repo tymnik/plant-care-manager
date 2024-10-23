@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { PlantCare } from "@plant-care/types";
 import { Expose } from "class-transformer";
+import { IsUUID } from "class-validator";
 export class PlantCareDto implements PlantCare {
   @Expose()
   @ApiProperty({
@@ -25,25 +26,26 @@ export class PlantCareDto implements PlantCare {
   updateAt!: Date;
   @Expose()
   @ApiProperty({
-    type: Number,
+    type: String,
     description: "Unique identifier of the plant care",
     example: 1,
   })
-  id!: number;
+  @IsUUID()
+  id!: string;
   @Expose()
   @ApiProperty({
-    type: Number,
+    type: String,
     description: "Unique identifier of the plant",
     example: 1,
   })
-  plantId!: number;
+  plantId!: string;
   @Expose()
   @ApiProperty({
-    type: Number,
+    type: String,
     description: "Unique identifier of the user",
     example: 1,
   })
-  userId!: number;
+  userId!: string;
   @Expose()
   @ApiProperty({
     type: Date,

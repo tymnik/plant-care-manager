@@ -28,10 +28,10 @@ export class UserService
   async findByEmail(email: string) {
     return await this.findOne({ email });
   }
-  async me(userId: number): Promise<User> {
+  async me(userId: string): Promise<User> {
     return await this.findOne({ id: userId });
   }
-  async findTendingPlants(id: number): Promise<PlantCare[]> {
+  async findTendingPlants(id: string): Promise<PlantCare[]> {
     return await this.plantCareService.findMany({ where: { userId: id } });
   }
 }

@@ -8,6 +8,8 @@ import {
   IsNumber,
   IsString,
   IsStrongPassword,
+  IsUrl,
+  IsUUID,
 } from "class-validator";
 @SerializeOptions({ type: UserDto })
 export class UserDto implements User {
@@ -27,10 +29,6 @@ export class UserDto implements User {
   updateAt!: Date;
   @Exclude()
   refreshToken!: string | null;
-  @ApiProperty({ description: "Unique identifier of the user", type: Number })
-  @Expose()
-  @IsNumber()
-  id!: number;
 
   @ApiProperty({ description: "First name of the user", type: String })
   @Expose()
@@ -66,6 +64,14 @@ export class UserDto implements User {
   })
   @Exclude({ toPlainOnly: true })
   password!: string;
+  @ApiProperty({ description: "Unique identifier of the user", type: String })
+  @Expose()
+  @IsUUID()
+  id!: string;
+  @ApiProperty({ description: "Url of user avatar", type: String })
+  @Expose()
+  @IsUrl()
+  avatar!: string | null;
   constructor(partial: Partial<UserDto>) {
     Object.assign(this, partial);
   }

@@ -26,11 +26,11 @@ export class PlantDto implements Plant {
   name!: string;
 
   @ApiProperty({
-    type: Number,
+    type: String,
     description: "Unique identifier of the plant",
     example: 1,
   })
-  id!: number;
+  id!: string;
 
   @ApiProperty({
     type: [String],
