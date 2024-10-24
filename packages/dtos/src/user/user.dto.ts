@@ -68,11 +68,5 @@ export class UserDto implements User {
   @Expose()
   @IsUUID()
   id!: string;
-  @ApiProperty({ description: "Url of user avatar", type: String })
-  @Expose()
-  @IsUrl()
-  avatar!: string | null;
-  constructor(partial: Partial<UserDto>) {
-    Object.assign(this, partial);
-  }
+  avatarId!: string;
 }

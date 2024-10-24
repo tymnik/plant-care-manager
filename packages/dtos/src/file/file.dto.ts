@@ -15,6 +15,10 @@ import {
 
 @SerializeOptions({ type: FileDto })
 export class FileDto implements File {
+  plantId!: string | null;
+  isPlantContent!: boolean;
+  isUserPlantCareContent!: boolean;
+  userPlantCareId!: string | null;
   @ApiProperty({ type: String, description: "The name of the file" })
   @IsNotEmpty()
   @IsString()

@@ -47,13 +47,6 @@ export class PlantDto implements Plant {
   otherNames!: string[];
 
   @ApiProperty({
-    type: [String],
-    description: "Images of the plant",
-    example: ["https://example.com/rose.jpg"],
-  })
-  images!: string[];
-
-  @ApiProperty({
     type: String,
     description: "Growth cycle of the plant",
     example: "Annual",

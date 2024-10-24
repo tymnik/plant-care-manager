@@ -1,18 +1,10 @@
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import {
-  BadGatewayException,
-  forwardRef,
-  Inject,
-  Injectable,
-} from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { File } from '@plant-care/types';
 import { extname } from 'path';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { BasePrismaCrudService } from 'src/shared/classes/BasePrismaCrudService';
 import { S3Service } from './s3.service';
 import { SharpService } from './sharp.service';
-import { he } from '@faker-js/faker/.';
 
 const sharp = require('sharp');
 @Injectable()
@@ -33,32 +25,19 @@ export class FileService extends BasePrismaCrudService<
   ) {
     super(prisma, 'file');
   }
-  async uploadPlantPhoto(file: Express.Multer.File, plantId: string) {
-    const folder = `admin/uploads/plant/${plantId}/${this.createUniqueName()}`;
-    const scales = [
-      { width: 200, height: 200 },
-      { width: 400, height: 400 },
-      { width: 800, height: 800 },
-      { width: 1024, height: 1024 },
-      { width: 1280, height: 720 }, // 720p
-      { width: 1920, height: 1080 }, // 1080p
-    ];
-    const resizedImgBuffers = await Promise.all(
-      scales.map(async ({ width, height }) => ({
-        [`${width}x${height}`]: await this.sharpService.resizeOne(
-          file,
-          width,
-          height,
-        ),
-      })),
-    );
-    const sizes = (
+  async uploadResizedArray(
+    originFile: Express.Multer.File,
+    resizedImgBuffers: { [key: string]: Buffer }[],
+    folder,
+  ) {
+    const extArgs = extname(originFile.originalname);
+    return (
       await Promise.all([
         {
           original: await this.s3Service.upload(
-            file.buffer,
-            `${folder}/original`,
-            file.mimetype,
+            originFile.buffer,
+            `${folder}/original.${extArgs}`,
+            originFile.mimetype,
           ),
         },
         ...resizedImgBuffers.map(async (obj) => {
@@ -66,30 +45,87 @@ export class FileService extends BasePrismaCrudService<
             return {
               [`${key}`]: await this.s3Service.upload(
                 buffer,
-                `admin/uploads/plant/${plantId}/${key}`,
-                file.mimetype,
+                `${folder}/${key}.${extArgs}`,
+                originFile.mimetype,
               ),
             };
           }
         }),
       ])
     ).reduce((acc, cur) => ({ ...acc, ...cur }), {});
+  }
+  async uploadPlantPhoto(file: Express.Multer.File, plantId: string) {
+    const folder = `admin/uploads/plant/${plantId}`;
+    const scales = [
+      { width: 160, height: 160 },
+      { width: 240, height: 240 },
+      { width: 300, height: 300 },
+    ];
+    const resizedImgBuffers =
+      await this.sharpService.resizeManyAndReturnBuffers(file, scales);
+    const sizes = await this.uploadResizedArray(
+      file,
+      resizedImgBuffers,
+      folder,
+    );
     return await super.create({
-      name: file.filename,
+      name: file.originalname || plantId,
       path: folder,
       original: sizes['original'],
       scales: sizes,
       isAdminContent: true,
     });
   }
+  async uploadUserAvatar(file: Express.Multer.File, userId: string) {
+    const folder = `user/uploads/${userId}/avatar/`;
+    const scales = [
+      { width: 40, height: 40 },
+      { width: 300, height: 300 },
+    ];
+    const resizedImgBuffers =
+      await this.sharpService.resizeManyAndReturnBuffers(file, scales);
+    const sizes = await this.uploadResizedArray(
+      file,
+      resizedImgBuffers,
+      folder,
+    );
+    return await super.create({
+      name: file.originalname || userId,
+      path: folder,
+      original: sizes['original'],
+      scales: sizes,
+      isAvatar: true,
+    });
+  }
+  async uploadUserPlantCarePhoto(
+    file: Express.Multer.File,
+    userId: string,
+    plantCareId: string,
+  ) {
+    const folder = `user/uploads/${userId}/plant-care/${plantCareId}`;
+    const scales = [
+      { width: 40, height: 40 },
+      { width: 300, height: 300 },
+    ];
+    const resizedImgBuffers =
+      await this.sharpService.resizeManyAndReturnBuffers(file, scales);
+    const sizes = await this.uploadResizedArray(
+      file,
+      resizedImgBuffers,
+      folder,
+    );
+    return await super.create({
+      name: file.originalname || userId,
+      path: folder,
+      original: sizes['original'],
+      scales: sizes,
+      isPlantContent: true,
+      user: { connect: { id: userId } },
+      userPlantCare: { connect: { id: plantCareId } },
+    });
+  }
   private createUniqueName(): string {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
     return `${uniqueSuffix}`;
-  }
-  async uploadFile(file: Express.Multer.File) {
-    const scaledUrls = await this.uploadPlantPhoto(file, 'dsadsad');
-    // super.create({
-    //   original: scaledUrls[0],
-    // });
   }
 }

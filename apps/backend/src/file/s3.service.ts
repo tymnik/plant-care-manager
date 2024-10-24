@@ -1,7 +1,14 @@
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import { BadGatewayException, Injectable } from '@nestjs/common';
+import {
+  DeleteObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { extname } from 'path';
 import { SharpService } from './sharp.service';
 
 const sharp = require('sharp');
@@ -43,7 +50,7 @@ export class S3Service {
       return this.getFileUrlByKey(key);
     } catch (err) {
       console.error(err);
-      throw new BadGatewayException('Can`t save file to storage', err);
+      throw new Error("Can't save file from storage");
     }
   }
   async uploadMany(data: { buffer: Buffer; key: string; mimetype: string }[]) {
@@ -52,5 +59,16 @@ export class S3Service {
         this.upload(buffer, key, mimetype),
       ),
     );
+  }
+  async remove(key) {
+    try {
+      const command = new DeleteObjectCommand({
+        Key: key,
+        Bucket: this.bucketName,
+      });
+      await this.client.send(command);
+    } catch (err) {
+      throw new Error('Can`t delete file from storage');
+    }
   }
 }

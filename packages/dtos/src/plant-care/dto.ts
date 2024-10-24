@@ -5,13 +5,6 @@ import { IsUUID } from "class-validator";
 export class PlantCareDto implements PlantCare {
   @Expose()
   @ApiProperty({
-    type: [String],
-    description: "Array of images url",
-    example: ["http://img.jpg", "http://img.jpg"],
-  })
-  images!: string[];
-  @Expose()
-  @ApiProperty({
     type: Date,
     description: "Date of the create",
     example: new Date(),

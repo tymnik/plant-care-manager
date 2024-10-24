@@ -7,7 +7,7 @@ export namespace File {
     export type Update = Prisma.FileUpdateInput;
   }
   export namespace Args {
-    export type Create = Prisma.FileUpdateInput;
+    export type Create = Prisma.FileCreateInput;
 
     export type Update = {
       where: Prisma.FileWhereInput;

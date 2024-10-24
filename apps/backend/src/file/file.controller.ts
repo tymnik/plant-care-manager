@@ -3,6 +3,7 @@ import {
   Controller,
   forwardRef,
   Inject,
+  InternalServerErrorException,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -11,6 +12,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiOperation } from '@nestjs/swagger';
 import { extname } from 'path';
 import { FileService } from './file.service';
+import { CustomFileInterceptor } from './file.interseptor';
 
 @Controller('file')
 export class FileController {
@@ -18,31 +20,7 @@ export class FileController {
     @Inject(forwardRef(() => FileService)) private fileService: FileService,
   ) {}
   @Post('admin/upload/plant')
-  @UseInterceptors(
-    FileInterceptor('file', {
-      fileFilter: (req, file, callback) => {
-        if (file.filename !== 'file') {
-          return callback(new BadRequestException('Invalid field name'), false);
-        }
-
-        const ext = extname(file.originalname).toLowerCase();
-        if (!['.png', '.jpg', '.jpeg', '.gif', '.webp'].includes(ext)) {
-          return callback(new BadRequestException('Invalid file type'), false);
-        }
-
-        const fileSize = parseInt(req.headers['content-length']);
-        if (fileSize > 500 * 1024) {
-          // 500kb
-          return callback(new BadRequestException('File too large'), false);
-        }
-
-        callback(null, true);
-      },
-      limits: {
-        fileSize: 500 * 1024, // 500kb
-      },
-    }),
-  )
+  @UseInterceptors(CustomFileInterceptor)
   @ApiOperation({ summary: 'Upload a file' })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -57,6 +35,13 @@ export class FileController {
     },
   })
   async upload(@UploadedFile() file: Express.Multer.File) {
-    return this.fileService.uploadPlantPhoto(file, 'test-123');
+    try {
+      return this.fileService.uploadPlantPhoto(file, 'test-123');
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Error uploading plant photo',
+        error.message,
+      );
+    }
   }
 }

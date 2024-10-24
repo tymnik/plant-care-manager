@@ -17,14 +17,15 @@ export class SharpService {
       .toFormat(extname(file.originalname).replace('.', ''))
       .toBuffer();
   }
-  public async resizeMany(
+  public async resizeManyAndReturnBuffers(
     file: Express.Multer.File,
     scales: { width: number; height: number }[],
-  ): Promise<Buffer[]> {
-    return await Promise.all(
-      scales.map(async ({ width, height }) => {
-        return await this.resizeOne(file, width, height);
-      }),
+  ): Promise<Record<string, Buffer>[]> {
+    const resizedImgBuffers = await Promise.all(
+      scales.map(async ({ width, height }) => ({
+        [`${width}x${height}`]: await this.resizeOne(file, width, height),
+      })),
     );
+    return resizedImgBuffers;
   }
 }
