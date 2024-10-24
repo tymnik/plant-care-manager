@@ -33,9 +33,9 @@ export class BaseCrudController<
           ? {
               [body.orderBy]: body.order,
             }
-          : { id: 'desc' },
+          : { id: 'asc' },
     });
-    return new Pagination<T>(data, count, body.perPage, body.page);
+    return new Pagination<T>(data, count, body.perPage || 1, body.page || 20);
   }
   findOne(params: IdPathParams): Promise<T> {
     return this.baseCrudService.findOne({ id: +params.id });
