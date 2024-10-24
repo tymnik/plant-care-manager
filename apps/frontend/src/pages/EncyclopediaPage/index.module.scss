@@ -9,6 +9,7 @@
   background-position:
     0 0,
     40px 40px;
+  transition: all $transition;
   &__wrapper {
     padding: 16px;
     display: flex;
@@ -28,6 +29,7 @@
     font-weight: $medium;
     text-shadow: $tertiary-shadow;
     height: 100%;
+    transition: color $transition;
   }
   &__text {
     background-color: var(--tertiary-bg);
@@ -37,6 +39,7 @@
     line-height: 1.5;
     text-shadow: $tertiary-shadow;
     height: 100%;
+    transition: color $transition;
   }
   &__slider {
     display: flex;

@@ -24,9 +24,9 @@ const EncyclopediaPage = () => {
           </div>
         </div>
       </section>
-      {/* <div className={style.epContainer}>
+      <div className={style.epContainer}>
         <EncyclopediaPageContent />
-      </div> */}
+      </div>
     </>
   )
 }

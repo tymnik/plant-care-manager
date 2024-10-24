@@ -13,6 +13,8 @@ export const choiceItems = [
   { order: 3, text: "Stay on Track " },
 ];
 
+//EncyclopediaPage
+
 export const wikiGuide = [
   {
     heading: "Alphabetical Navigation",
@@ -22,7 +24,7 @@ export const wikiGuide = [
   {
     heading: "Search & Filters",
     description:
-      "Looking for something specific ? Use the search bar to type in a plant name, or apply our advanced filters to refine your search based on plant type, sunlight needs, water requirements, and more.",
+      "Use the search bar to type in a plant name, or apply our advanced filters to refine your search based on plant type, sunlight needs, water requirements, and more.",
   },
   {
     heading: "Plant Details",
@@ -33,5 +35,62 @@ export const wikiGuide = [
     heading: "Interactive Tools",
     description:
       "Save your favorite plants, compare different species, and even get personalized care reminders by creating an account with us.",
+  },
+];
+
+export const abc = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+];
+
+export const plantsData = [
+  {
+    image: "../assets/encyclopedia-page-images/slide-1.webp",
+    name: "Cactus",
+    description: "Some terrible description!",
+  },
+  {
+    image: "../assets/encyclopedia-page-images/slide-1.webp",
+    name: "Rose",
+    description: "Some terrible description!",
+  },
+  {
+    image: "../assets/encyclopedia-page-images/slide-1.webp",
+    name: "Tuberose",
+    description: "Some terrible description!",
+  },
+  {
+    image: "../assets/encyclopedia-page-images/slide-1.webp",
+    name: "Apple Tree",
+    description: "Some terrible description!",
+  },
+  {
+    image: "../assets/encyclopedia-page-images/slide-1.webp",
+    name: "Mango",
+    description: "Some terrible description!",
   },
 ];

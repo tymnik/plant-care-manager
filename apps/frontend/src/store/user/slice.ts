@@ -20,7 +20,7 @@ const initialState: UserState = {
     lastName: "",
     email: "",
   },
-  token: { id: "", refresh: undefined },
+  token: { refresh: undefined },
   isLoggedIn: false,
   isLoading: false,
   isRefreshing: false,
