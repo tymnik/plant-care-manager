@@ -26,16 +26,16 @@ export class BaseCrudController<
     const count = await this.baseCrudService.count();
 
     const data = await this.baseCrudService.findMany({
-      skip: (body.page - 1) * body.perPage,
-      take: +body.perPage,
+      skip: (body.page - 1) * body.perPage || 0,
+      take: +body.perPage || 20,
       orderBy:
         body.orderBy && body.order
           ? {
               [body.orderBy]: body.order,
             }
-          : null,
+          : { id: 'asc' },
     });
-    return new Pagination<T>(data, count, body.perPage, body.page);
+    return new Pagination<T>(data, count, body.perPage || 20, body.page || 1);
   }
   findOne(params: IdPathParams): Promise<T> {
     return this.baseCrudService.findOne({ id: +params.id });
