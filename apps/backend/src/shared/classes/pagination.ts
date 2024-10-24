@@ -12,7 +12,7 @@ export class Pagination<T> implements Base.PaginationResponse {
       currentPage: +page,
       perPage: +perPage,
       prev: +page - 1 || null,
-      next: lastPage !== page ? +page + 1 : null,
+      next: Math.ceil(lastPage) !== page ? +page + 1 : null,
     };
   }
 }
