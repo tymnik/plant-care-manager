@@ -35,7 +35,7 @@ export class BaseCrudController<
             }
           : { id: 'asc' },
     });
-    return new Pagination<T>(data, count, body.perPage || 1, body.page || 20);
+    return new Pagination<T>(data, count, body.perPage || 20, body.page || 1);
   }
   findOne(params: IdPathParams): Promise<T> {
     return this.baseCrudService.findOne({ id: +params.id });
