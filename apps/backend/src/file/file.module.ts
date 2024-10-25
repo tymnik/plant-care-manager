@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { FileService } from './file.service';
+import { FileService } from './services/file.service';
 import { FileController } from './file.controller';
 import { S3Service } from './s3.service';
 import { SharpService } from './sharp.service';

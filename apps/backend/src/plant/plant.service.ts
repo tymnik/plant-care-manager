@@ -1,12 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Plant } from '@plant-care/types';
+import { PlantFileService } from 'src/file/services/plant-file.service';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { BasePrismaCrudService } from 'src/shared/classes/BasePrismaCrudService';
+import { BasePrismaCrudWithFileService } from 'src/shared/classes/BaseCrudServiceWithFiles';
 import { ICRUDService } from 'src/shared/interfaces/crud/service/ICRUD';
 
 @Injectable()
 export class PlantService
-  extends BasePrismaCrudService<
+  extends BasePrismaCrudWithFileService<
     Plant,
     Plant.Args.Create,
     Plant.Args.FindMany,
@@ -16,7 +17,11 @@ export class PlantService
   >
   implements ICRUDService
 {
-  constructor(protected prisma: PrismaService) {
-    super(prisma, 'plant');
+  constructor(
+    protected prisma: PrismaService,
+    protected readonly fileService: PlantFileService,
+    @Inject('model') recourse: string,
+  ) {
+    super(prisma, fileService, recourse);
   }
 }
