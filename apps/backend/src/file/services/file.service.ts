@@ -35,7 +35,7 @@ export class FileService extends BasePrismaCrudService<
         {
           original: await this.s3Service.upload(
             originFile.buffer,
-            `${folder}/original.${extArgs}`,
+            `${folder}original${extArgs}`,
             originFile.mimetype,
           ),
         },
@@ -44,7 +44,7 @@ export class FileService extends BasePrismaCrudService<
             return {
               [`${key}`]: await this.s3Service.upload(
                 buffer,
-                `${folder}/${key}.${extArgs}`,
+                `${folder}${key}.${extArgs}`,
                 originFile.mimetype,
               ),
             };

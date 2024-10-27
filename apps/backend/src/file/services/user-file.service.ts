@@ -34,14 +34,21 @@ export class UserFileService extends FileService {
       original: sizes['original'],
       scales: sizes,
       isAvatar: true,
+      avatarUser: { connect: { id: userId } },
+      user: { connect: { id: userId } },
     });
   }
   async remove(userId: string) {
     const files = await super.prisma.file.findMany({
       where: {
-        OR: [
-          { avatarUser: { every: { id: userId } } },
-          { user: { id: userId } },
+        AND: [
+          {
+            OR: [
+              { avatarUser: { every: { id: userId } } },
+              { user: { id: userId } },
+            ],
+          },
+          { isAdminContent: false },
         ],
       },
     });

@@ -5,11 +5,11 @@ import { File as FileType } from "@plant-care/types";
 export class FileCreateBodyDto
   extends OmitType(Test.FileDto, ["id"] as const)
   implements FileType.Inputs.Create {}
-export class PlantUpdateBodyDto
+export class FileUpdateBodyDto
   extends PartialType(Test.FileDto)
   implements FileType.Inputs.Update {}
-export class PlantIdPathParamsDto extends PickType(Test.FileDto, [
+export class FileIdPathParamsDto extends PickType(Test.FileDto, [
   "id",
 ] as const) {}
-export class PlantResponseDto extends Test.FileDto {}
-export class PlantFindManyQueryDto extends Test.FileDto {}
+export class FileResponseDto extends Test.FileDto {}
+export class FileFindManyQueryDto extends Test.FileDto {}

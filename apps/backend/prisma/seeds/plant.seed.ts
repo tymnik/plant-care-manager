@@ -8,7 +8,6 @@ export const fakerPlant = () => ({
   name: faker.lorem.word(),
   scientificNames: [faker.lorem.word()],
   otherNames: [faker.lorem.word(), faker.lorem.word()],
-  images: [faker.image.url()],
   cycle: faker.helpers.arrayElement(['Annual', 'Perennial', 'Biennial']),
   watering: faker.helpers.arrayElement([
     'Frequent',
@@ -88,7 +87,7 @@ export const fakerPlant = () => ({
 });
 
 async function plantSeed() {
-  const fakerRounds = 10;
+  const fakerRounds = 100;
   dotenv.config();
   console.log('Seeding...');
   const data = [];

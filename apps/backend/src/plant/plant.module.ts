@@ -3,6 +3,8 @@ import { PlantService } from './plant.service';
 import { PlantController } from './plant.controller';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { BasePrismaCrudService } from 'src/shared/classes/BasePrismaCrudService';
+import { AuthModule } from 'src/auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   controllers: [PlantController],
@@ -14,6 +16,6 @@ import { BasePrismaCrudService } from 'src/shared/classes/BasePrismaCrudService'
     BasePrismaCrudService,
     PlantService,
   ],
-  imports: [PrismaModule],
+  imports: [PrismaModule, AuthModule, JwtModule],
 })
 export class PlantModule {}

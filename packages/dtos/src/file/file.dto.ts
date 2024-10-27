@@ -1,27 +1,30 @@
 import { SerializeOptions } from "@nestjs/common";
 import { ApiProperty } from "@nestjs/swagger";
 import { File } from "@plant-care/types";
-import { User } from "@prisma/client";
-import { JsonValue } from "@prisma/client/runtime/library";
-import { Exclude, Expose } from "class-transformer";
+import { Exclude } from "class-transformer";
 import {
-  IsNotEmpty,
-  IsString,
   IsBoolean,
   IsDate,
+  IsNotEmpty,
   IsOptional,
+  IsString,
   IsUUID,
 } from "class-validator";
 
 @SerializeOptions({ type: FileDto })
 export class FileDto implements File {
+  @Exclude()
   plantId!: string | null;
+  @Exclude()
   isPlantContent!: boolean;
+  @Exclude()
   isUserPlantCareContent!: boolean;
+  @Exclude()
   userPlantCareId!: string | null;
   @ApiProperty({ type: String, description: "The name of the file" })
   @IsNotEmpty()
   @IsString()
+  @Exclude()
   name!: string;
 
   @ApiProperty({
@@ -36,6 +39,7 @@ export class FileDto implements File {
   @ApiProperty({ type: String, description: "The path of the file" })
   @IsNotEmpty()
   @IsString()
+  @Exclude()
   path!: string;
 
   @ApiProperty({ type: String, description: "The original name of the file" })
@@ -63,6 +67,7 @@ export class FileDto implements File {
   })
   @IsNotEmpty()
   @IsBoolean()
+  @Exclude()
   isAdminContent!: boolean;
 
   @ApiProperty({
@@ -71,6 +76,7 @@ export class FileDto implements File {
   })
   @IsNotEmpty()
   @IsBoolean()
+  @Exclude()
   isAvatar!: boolean;
 
   @ApiProperty({
@@ -82,5 +88,6 @@ export class FileDto implements File {
   })
   @IsOptional()
   @IsUUID()
+  @Exclude()
   userId!: string | null;
 }

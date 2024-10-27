@@ -35,4 +35,11 @@ export class BasePrismaCrudWithFileService<
       throw new Error(`Failed to delete ${this.recourse}: ${error.message}`);
     }
   }
+  async upload(file: Express.Multer.File, ...args: any) {
+    try {
+      this.fileService.upload(file, ...args);
+    } catch (err) {
+      throw new Error(`Failed to upload file: ${err.message}`);
+    }
+  }
 }

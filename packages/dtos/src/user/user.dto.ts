@@ -1,7 +1,7 @@
 import { SerializeOptions } from "@nestjs/common";
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { User } from "@prisma/client";
-import { Exclude, Expose } from "class-transformer";
+import { Exclude, Expose, Type } from "class-transformer";
 import {
   IsEmail,
   IsNotEmpty,
@@ -11,6 +11,7 @@ import {
   IsUrl,
   IsUUID,
 } from "class-validator";
+import { FileDto } from "../file/file.dto";
 @SerializeOptions({ type: UserDto })
 export class UserDto implements User {
   @Expose()
@@ -69,4 +70,11 @@ export class UserDto implements User {
   @IsUUID()
   id!: string;
   avatarId!: string;
+  @ApiPropertyOptional({
+    type: FileDto,
+    description: "Avatar of the user",
+  })
+  @Type(() => FileDto)
+  @Expose()
+  avatar!: FileDto;
 }
