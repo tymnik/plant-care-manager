@@ -1,14 +1,15 @@
-import Carousel from "../../utils/Carousel";
+import Carousel from "../../ui/Carousel";
 import EncyclopediaPageContent from "../../components/EncyclopediaPageContent"
 
 import image1 from '../../assets/encyclopedia-page-images/slide-1.webp';
 import image2 from '../../assets/encyclopedia-page-images/slide-2.webp';
 import image3 from '../../assets/encyclopedia-page-images/slide-3.webp';
 import image4 from '../../assets/encyclopedia-page-images/slide-4.webp';
+import image5 from '../../assets/encyclopedia-page-images/slide-5.webp';
 
 import style from './index.module.scss'
 
-const carouselImages = [image1, image2, image3, image4];
+const carouselImages = [image1, image2, image3, image4, image5];
 
 const EncyclopediaPage = () => {
   return (

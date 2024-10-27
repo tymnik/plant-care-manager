@@ -40,7 +40,6 @@
   &.ghost {
     width: fit-content;
     height: fit-content;
-    color: var(--primary-text-color);
     background-color: transparent;
     font-weight: $light;
     &:hover,
@@ -63,8 +62,5 @@
     width: 180px;
     height: 52px;
     font-size: 28px;
-    &.ghost {
-      font-size: 24px;
-    }
   }
 }

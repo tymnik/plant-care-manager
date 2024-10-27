@@ -67,30 +67,11 @@ export const abc = [
   "Z",
 ];
 
-export const plantsData = [
-  {
-    image: "../assets/encyclopedia-page-images/slide-1.webp",
-    name: "Cactus",
-    description: "Some terrible description!",
-  },
-  {
-    image: "../assets/encyclopedia-page-images/slide-1.webp",
-    name: "Rose",
-    description: "Some terrible description!",
-  },
-  {
-    image: "../assets/encyclopedia-page-images/slide-1.webp",
-    name: "Tuberose",
-    description: "Some terrible description!",
-  },
-  {
-    image: "../assets/encyclopedia-page-images/slide-1.webp",
-    name: "Apple Tree",
-    description: "Some terrible description!",
-  },
-  {
-    image: "../assets/encyclopedia-page-images/slide-1.webp",
-    name: "Mango",
-    description: "Some terrible description!",
-  },
+export const filterCategories = [
+  { label: "Indoor", key: "indoor" },
+  { label: "Outdoor", key: "outdoor" },
+  { label: "Medicinal", key: "medicinal" },
+  { label: "Flowers", key: "flowers" },
+  { label: "Fruits", key: "fruits" },
+  { label: "Cuisine", key: "cuisine" },
 ];

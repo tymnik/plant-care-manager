@@ -54,3 +54,22 @@ select,
 textarea {
   font-family: inherit;
 }
+
+//SCROLLBAR
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $grey;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: $grey-dark;
+}

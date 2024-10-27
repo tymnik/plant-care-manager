@@ -4,7 +4,7 @@ import { Plant } from "../types/Plant";
 
 export const fetchPlants = async (): Promise<Plant[]> => {
   const response = await axios.get("/plant");
-  const data = response.data;
+  const data = response.data.data;
   return data.map((plant: Plant) => ({
     name: plant.name,
     id: plant.id,
