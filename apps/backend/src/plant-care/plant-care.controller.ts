@@ -9,9 +9,19 @@ import {
   Patch,
   Post,
   Query,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import {
   FindManyDto,
   PlantCareCreateBodyDto,
@@ -24,6 +34,7 @@ import { BaseCrudController } from 'src/shared/classes/BaseCrudController';
 import { Pagination } from 'src/shared/classes/pagination';
 import { ApiOkResponsePaginated } from 'src/shared/decorators/api-ok-response-paginated.decorator';
 import { PlantCareService } from './plant-care.service';
+import { CustomFileInterceptor } from 'src/file/interceptors/file.interceptor';
 
 @Controller('plant-care')
 @ApiTags('Plant care')
@@ -90,5 +101,24 @@ export class PlantCareController extends BaseCrudController<
     @Param() params: PlantCareIdPathParamsDto,
   ): Promise<PlantCareResponseDto> {
     return super.delete(params);
+  }
+  @Post(':id/upload/images')
+  @UseInterceptors(CustomFileInterceptor)
+  @ApiOperation({ summary: 'Upload a avatar' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  async uploadAvatar(@UploadedFile() file, @Param('id') id: string) {
+    const plantCare = await this.plantCareService.findOne({ id });
+    this.plantCareService.upload(file, plantCare.userId, id);
   }
 }
