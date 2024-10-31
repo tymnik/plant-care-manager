@@ -59,7 +59,7 @@ This repository contains the backend for Plant Care Manager, an application that
 6. **Seed the database (optional):**
 
    ```bash
-   npm run seed
+   npm run seed -- -r <number-of-rounds>
    ```
 
 7. **Start the development server:**
