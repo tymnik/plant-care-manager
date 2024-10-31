@@ -42,27 +42,48 @@ This repository contains the backend for Plant Care Manager, an application that
    docker-compose up -d --build
    ```
 
-4. **Set up environment variables:**
+4. **Set up Minio**:
 
+- Open the Minio Console in your web browser:
+
+  ```
+  http://localhost:9001
+  ```
+
+- Log in to the Minio Console using the default credentials (access key: minioadmin, secret key: minioadmin).
+
+- Create a bucket with the name "Public" and set the policy to "public". 4. **Set up environment variables:**
+
+5. ** Set up environment variables:**:
    Create a `.env` file in the root directory and add the following environment variables, replacing the placeholders with your actual values:
 
    ```
    DATABASE_URL="postgresql://your-db-user:your-db-password@your-db-host:5432/your-db-name?schema=public"
    JWT_ACCESS_SECRET="your-jwt-access-secret"
    JWT_REFRESH_SECRET="your-jwt-refresh-secret"
+
+   S3_ENDPOINT="http://localhost:9000"
+   S3_ACCESS_KEY=root
+   S3_SECRET_KEY=password
+   S3_BUCKET_NAME="public"
+   AWS_REGION="any"
+
+   NODE_ENV = "development"
    ```
 
-5. **Run database migrations:**
+6. **Run database migrations:**
+
    ```bash
    npx prisma migrate dev
    ```
-6. **Seed the database (optional):**
+
+7. **Seed the database (optional):**
 
    ```bash
    npm run seed -- -r <number-of-rounds>
    ```
 
-7. **Start the development server:**
+8. **Start the development server:**
 
    ```bash
    npm run start:dev
