@@ -9,6 +9,7 @@ import { wikiGuide, abc } from '../../mock';
 import SideMenu from './SideMenu';
 import Button from '../../ui/Button';
 import Icon from '../../ui/Icon';
+import ScrollToTop from '../ScrollToTop';
 
 import style from './index.module.scss';
 
@@ -141,6 +142,8 @@ const EncyclopediaPageContent = () => {
                     selectedFilters={selectedFilters}
                 />
             )}
+
+            <ScrollToTop />
         </>
     );
 };
