@@ -5,10 +5,13 @@ import { User } from '@plant-care/types';
 import * as argon2 from 'argon2';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
+import dayjs = require('dayjs');
 
 // Mock data and responses
 const mockUser: User = {
   id: 1,
+  createAt: dayjs('2008-02-02').toDate(),
+  updateAt: dayjs('2008-02-02').toDate(),
   email: 'test@example.com',
   password: 'hashed_password',
   refreshToken: 'hashed_refresh_token',

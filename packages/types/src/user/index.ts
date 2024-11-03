@@ -21,4 +21,14 @@ export namespace User {
 
     export type Delete = Prisma.UserWhereUniqueInput;
   }
+  export namespace Response {
+    export type WithPlantCare = Prisma.UserGetPayload<{
+      select: {
+        id: true;
+      };
+      include: {
+        plantCare: true;
+      };
+    }>;
+  }
 }
