@@ -2,6 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { PlantCare } from "@plant-care/types";
 import { Expose, Type } from "class-transformer";
 import { IsUUID } from "class-validator";
+import { FileDto } from "../file/file.dto";
 export class PlantCareDto implements PlantCare {
   @Expose()
   @ApiProperty({
