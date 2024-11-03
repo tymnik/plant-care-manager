@@ -19,4 +19,16 @@ export class PlantService
   constructor(protected prisma: PrismaService) {
     super(prisma, 'plant');
   }
+  async findMany(params: Plant.Args.FindMany) {
+    return await this.prisma.plant.findMany({
+      ...params,
+      include: { images: true },
+    });
+  }
+  async findOne(params: Plant.Args.FindOne) {
+    return await this.prisma.plant.findUnique({
+      where: params,
+      include: { images: true },
+    });
+  }
 }

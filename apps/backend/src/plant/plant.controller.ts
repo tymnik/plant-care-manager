@@ -8,7 +8,14 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import {
   FindManyDto,
   PaginationDto,
@@ -40,6 +47,7 @@ export class PlantController extends BaseCrudController<
     return super.create(createPlantDto);
   }
   @Get(':id')
+  @ApiOkResponse({ type: PlantResponseDto })
   findOne(@Param() params: PlantIdPathParamsDto): Promise<PlantResponseDto> {
     return super.findOne(params);
   }

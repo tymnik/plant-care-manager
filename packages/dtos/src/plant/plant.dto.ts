@@ -1,6 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Plant } from "@plant-care/types";
+import { File, Plant } from "@plant-care/types";
 import { $Enums } from "@prisma/client";
+import { Expose, Type } from "class-transformer";
+import { FileDto } from "../file/file.dto";
 
 export class PlantDto implements Plant {
   @ApiProperty({
@@ -285,4 +287,12 @@ export class PlantDto implements Plant {
     example: "A beautiful flowering plant.",
   })
   description!: string;
+  @ApiProperty({
+    type: () => FileDto,
+    isArray: true,
+    description: "Images associated with the plant",
+    required: false,
+  })
+  @Type(() => FileDto)
+  images?: FileDto[];
 }
