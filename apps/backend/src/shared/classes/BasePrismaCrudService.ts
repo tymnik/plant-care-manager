@@ -3,8 +3,14 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { ICRUDService } from '../interfaces/crud/service/ICRUD';
 
 @Injectable()
-export class BasePrismaCrudService<T, Create, FindMany, FindOne, Delete, Update>
-  implements ICRUDService
+export class BasePrismaCrudService<
+  T,
+  Create,
+  FindMany,
+  FindOne extends { id?: string },
+  Delete extends { id?: string },
+  Update,
+> implements ICRUDService
 {
   recourse: string;
   constructor(

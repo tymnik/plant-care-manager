@@ -5,6 +5,9 @@ import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { FileModule } from 'src/file/file.module';
+import { FileService } from 'src/file/services/file.service';
+import { UserFileService } from 'src/file/services/user-file.service';
 
 @Module({
   providers: [
@@ -12,10 +15,14 @@ import { JwtModule } from '@nestjs/jwt';
       provide: 'model',
       useValue: 'user',
     },
+    {
+      provide: FileService,
+      useClass: UserFileService,
+    },
     BasePrismaCrudService,
     UserService,
   ],
-  imports: [PrismaModule, ConfigModule, JwtModule.register({})],
+  imports: [PrismaModule, ConfigModule, JwtModule.register({}), FileModule],
   exports: [UserService],
   controllers: [UserController],
 })

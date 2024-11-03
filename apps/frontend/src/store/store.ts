@@ -12,6 +12,7 @@ import {
 import storage from "redux-persist/lib/storage";
 
 import userReducer from "./user/slice";
+import plantReducer from "./plant/slice";
 
 const userPersistConfig = {
   key: "user",
@@ -24,6 +25,7 @@ const userPersistedReducer = persistReducer(userPersistConfig, userReducer);
 export const store = configureStore({
   reducer: {
     user: userPersistedReducer,
+    plant: plantReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

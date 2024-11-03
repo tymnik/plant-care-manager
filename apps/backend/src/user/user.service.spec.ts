@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { User } from '@plant-care/types';
+import dayjs = require('dayjs');
 
 // Mock PrismaService to avoid actual database calls during testing
 const mockPrismaService = {
@@ -38,6 +39,8 @@ describe('UserService', () => {
     prismaService = module.get<PrismaService>(PrismaService);
     mockUser = {
       id: 1,
+      createAt: dayjs('2008-02-02').toDate(),
+      updateAt: dayjs('2008-02-02').toDate(),
       email: 'test@example.com',
       password: 'hashed_password',
       firstName: 'TestUser',
@@ -46,6 +49,8 @@ describe('UserService', () => {
     };
     mockUser2 = {
       id: 2,
+      createAt: dayjs('2008-02-02').toDate(),
+      updateAt: dayjs('2008-02-02').toDate(),
       email: 'test@example.com',
       password: 'hashed_password',
       firstName: 'TestUser',
@@ -61,6 +66,8 @@ describe('UserService', () => {
         firstName: 'TestUser',
         lastName: 'TestUser',
         refreshToken: 'Refresh',
+        createAt: dayjs('2008-02-02').toDate(),
+        updateAt: dayjs('2008-02-02').toDate(),
       },
       mockUser2,
     ];
@@ -103,6 +110,7 @@ describe('UserService', () => {
   });
   describe('me', () => {
     it('should return the user', async () => {
+      mockPrismaService.user.findUnique.mockResolvedValue(mockUser);
       const user = await userService.me(mockUser.id);
       expect(user).toEqual(mockUser);
     });
@@ -180,6 +188,8 @@ describe('UserService', () => {
       const mockUsers: User[] = [
         {
           id: 2,
+          createAt: dayjs('2008-02-02').toDate(),
+          updateAt: dayjs('2008-02-02').toDate(),
           email: 'user2@example.com',
           password: 'hashed_password',
           firstName: 'TestUser',
@@ -188,6 +198,8 @@ describe('UserService', () => {
         },
         {
           id: 1,
+          createAt: dayjs('2008-02-02').toDate(),
+          updateAt: dayjs('2008-02-02').toDate(),
           email: 'user1@example.com',
           password: 'hashed_password',
           firstName: 'TestUser',
@@ -234,6 +246,8 @@ describe('UserService', () => {
       const mockCreatedUser: User = {
         id: 123,
         ...userData,
+        createAt: dayjs('2008-02-02').toDate(),
+        updateAt: dayjs('2008-02-02').toDate(),
         refreshToken: null,
       };
       mockPrismaService.user.create.mockResolvedValue(mockCreatedUser);
@@ -299,6 +313,8 @@ describe('UserService', () => {
       };
       const mockUpdatedUser: User = {
         id: userId,
+        createAt: dayjs('2008-08-08').toDate(),
+        updateAt: dayjs('2008-08-08').toDate(),
         email: 'updated@example.com',
         firstName: 'TestName',
         lastName: 'TestName',
@@ -361,6 +377,8 @@ describe('UserService', () => {
       const userIdToDelete = 1;
       const mockDeletedUser: User = {
         id: userIdToDelete,
+        createAt: dayjs('2008-02-02').toDate(),
+        updateAt: dayjs('2008-02-02').toDate(),
         email: 'deleted@example.com',
         firstName: 'TestName',
         lastName: 'TestName',

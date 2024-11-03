@@ -1,0 +1,414 @@
+@import "../../styles/vars";
+
+.epc_guideWrapper {
+  background-color: var(--secondary-bg);
+  padding: 16px;
+}
+
+.epc_guide {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  &__title {
+    text-align: center;
+    font-size: 18px;
+    color: var(--primary-text-color);
+    transition: all $transition;
+  }
+}
+
+.guideList {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 8px 0;
+  padding: 8px 0;
+  border-top: 1px solid var(--accent-color);
+  border-bottom: 1px solid var(--accent-color);
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    &__heading {
+      font-size: 14px;
+      color: var(--primary-text-color);
+      transition: all $transition;
+      cursor: pointer;
+      &:hover,
+      &:focus {
+        color: var(--secondary-text-color);
+      }
+    }
+    &__description {
+      font-size: 12px;
+      font-weight: $light;
+      color: var(--primary-text-color);
+      transition: all $transition;
+    }
+  }
+}
+
+.epc_alphabeticalSearch {
+  padding: 16px;
+  &__navList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    &__item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      font-size: 16px;
+      color: var(--secondary-text-color);
+      border: 1px solid transparent;
+      border-radius: 50%;
+      transition: all $transition;
+      &:hover,
+      &:focus {
+        color: var(--primary-text-color);
+        border: 1px solid var(--primary-text-color);
+        box-shadow: $secondary-shadow;
+      }
+    }
+  }
+}
+
+.epc_letterSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 16px 16px;
+  &__title {
+    font-size: 24px;
+    font-weight: $bold;
+    color: var(--secondary-text-color);
+    text-shadow: $primary-shadow;
+    transition: all $transition;
+  }
+}
+
+.epc_plantList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  &__plantCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    width: 160px;
+    height: 200px;
+    border-radius: 8px;
+    border: 1px solid var(--secondary-text-color);
+    overflow: hidden;
+    transition: all $transition;
+    box-shadow: $card-shadow;
+    cursor: pointer;
+    &:hover,
+    &:focus {
+      .epc_plantList__plantCard__info {
+        transform: translateY(0);
+      }
+      .epc_plantList__plantCard__info__heart {
+        display: block;
+      }
+    }
+    &__image {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+    }
+    &__info {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      width: 100%;
+      height: 200px;
+      position: absolute;
+      bottom: 0;
+      transform: translateY(160px);
+      background-color: var(--primary-bg);
+      z-index: 2;
+      overflow: hidden;
+      &__wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      &__name {
+        font-size: 16px;
+        font-weight: $regular-extra;
+        color: var(--secondary-text-color);
+        transition: all $transition;
+      }
+      &__heart {
+        display: none;
+        fill: none;
+        stroke: var(--primary-item-color);
+        transition: all $transition;
+        width: 20px;
+        height: 20px;
+        &:hover,
+        &:focus {
+          scale: 1.1;
+          stroke: var(--additional-accent-hover);
+        }
+      }
+    }
+  }
+}
+
+.epc_plantList__plantCard__info__hidden {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  & div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 124px;
+    overflow-y: auto;
+    & p {
+      font-size: 12px;
+      color: var(--secondary-text-color);
+      transition: all $transition;
+      & span {
+        color: var(--primary-text-color);
+        font-style: italic;
+      }
+    }
+  }
+
+  &__cardButton {
+    font-size: 14px;
+    color: var(--primary-accent-bg);
+    &:hover {
+      color: var(--additional-accent-hover);
+    }
+  }
+}
+
+.epc_asideMenu {
+  position: fixed;
+  top: 40%;
+  right: 10px;
+  z-index: 3;
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    position: relative;
+    &__item {
+      display: flex;
+      justify-content: end;
+      &__icon {
+        box-sizing: content-box;
+        padding: 4px;
+        width: 20px;
+        height: 20px;
+        stroke: $grey-dark;
+        transition: all $transition;
+        background-color: var(--tertiary-bg);
+        border-radius: 50%;
+        border: 1px solid var(--secondary-bg);
+        margin-left: auto;
+      }
+    }
+  }
+}
+
+.searchWrapper {
+  width: 40vw;
+}
+
+.filtersWrapper {
+  position: absolute;
+  top: 0;
+  right: 36px;
+}
+
+@media screen and (min-width: $tablet) {
+  .epc_guideWrapper {
+    padding: 20px;
+  }
+
+  .epc_guide {
+    &__title {
+      font-size: 22px;
+    }
+  }
+
+  .guideList {
+    gap: 12px;
+    margin: 12px 0;
+    padding: 12px 0;
+    &__item {
+      gap: 12px;
+      &__heading {
+        font-size: 16px;
+      }
+      &__description {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .epc_alphabeticalSearch {
+    padding: 20px 40px;
+    &__navList {
+      gap: 16px;
+      &__item {
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+      }
+    }
+  }
+
+  .epc_letterSection {
+    gap: 20px;
+    padding: 0 40px 20px;
+    &__title {
+      font-size: 32px;
+    }
+  }
+
+  .epc_plantList {
+    gap: 20px;
+    &__plantCard {
+      width: 240px;
+      height: 289px;
+      &__image {
+        width: 240px;
+        height: 240px;
+      }
+      &__info {
+        padding: 12px;
+        height: 289px;
+        transform: translateY(240px);
+        &__wrapper {
+          margin-bottom: 12px;
+        }
+        &__name {
+          font-size: 20px;
+        }
+        &__heart {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+  }
+}
+
+.epc_plantList__plantCard__info__hidden {
+  & div {
+    gap: 12px;
+    max-height: 200px;
+    & p {
+      font-size: 16px;
+    }
+  }
+  &__cardButton {
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: $desktop) {
+  .epc_guideWrapper {
+    padding: 48px;
+  }
+
+  .epc_guide {
+    &__title {
+      font-size: 28px;
+    }
+  }
+
+  .guideList {
+    gap: 16px;
+    margin: 16px 0;
+    padding: 16px 0;
+    &__item {
+      gap: 16px;
+      &__heading {
+        font-size: 18px;
+      }
+      &__description {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .epc_alphabeticalSearch {
+    padding: 48px;
+    &__navList {
+      gap: 24px;
+      &__item {
+        width: 48px;
+        height: 48px;
+        font-size: 28px;
+      }
+    }
+  }
+
+  .epc_letterSection {
+    gap: 48px;
+    padding: 0 48px 48px;
+    &__title {
+      font-size: 44px;
+    }
+  }
+
+  .epc_plantList {
+    gap: 48px;
+    &__plantCard {
+      width: 300px;
+      height: 358px;
+      &__image {
+        width: 300px;
+        height: 300px;
+      }
+      &__info {
+        padding: 14px;
+        height: 358px;
+        transform: translateY(300px);
+        &__wrapper {
+          margin-bottom: 14px;
+        }
+        &__name {
+          font-size: 24px;
+        }
+        &__heart {
+          width: 28px;
+          height: 28px;
+        }
+      }
+    }
+  }
+
+  .epc_plantList__plantCard__info__hidden {
+    & div {
+      gap: 14px;
+      max-height: 220px;
+      & p {
+        font-size: 18px;
+      }
+    }
+    &__cardButton {
+      font-size: 22px;
+    }
+  }
+
+  .searchWrapper {
+    width: 25vw;
+  }
+}

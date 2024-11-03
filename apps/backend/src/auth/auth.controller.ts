@@ -54,7 +54,7 @@ export class AuthController {
     type: AuthResponseDto,
   })
   logout(@AuthUser() user: AuthUser) {
-    this.authService.logout(+user['sub']);
+    this.authService.logout(user['sub']);
   }
   @UseGuards(RefreshTokenGuard)
   @Post('refresh')
@@ -67,6 +67,6 @@ export class AuthController {
   refreshTokens(@AuthUser() user: AuthUser): Promise<AuthResponseDto> {
     const userId = user['sub'];
     const refreshToken = user['refreshToken'];
-    return this.authService.refreshTokens(+userId, refreshToken);
+    return this.authService.refreshTokens(userId, refreshToken);
   }
 }

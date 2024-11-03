@@ -1,0 +1,27 @@
+@import "../../styles/vars";
+
+//CAROUSEL
+
+.carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  &__container {
+    position: relative;
+    height: auto;
+  }
+}
+
+.carouselImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transition: all $transition;
+}
+
+.active {
+  opacity: 1;
+}

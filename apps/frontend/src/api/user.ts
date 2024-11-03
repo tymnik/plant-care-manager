@@ -4,8 +4,6 @@ import { LoginPropsType, SignUpPropsType } from "../schemas";
 import { getAccessToken, getUserToken, setToken } from ".";
 import { User } from "../types";
 
-type UserId = string | number;
-
 export const registerUser = async (credentials: SignUpPropsType) => {
   await createUser(credentials);
 
@@ -33,13 +31,7 @@ export const loginUser = async ({ email, password }: LoginPropsType) => {
   return { user, token: { access, refresh } };
 };
 
-export const refreshUser = async ({
-  id,
-  refresh,
-}: {
-  id: UserId;
-  refresh: string;
-}) => {
+export const refreshUser = async ({ refresh }: { refresh: string }) => {
   const { access } = await getAccessToken(refresh);
   setToken(access);
 
@@ -47,7 +39,7 @@ export const refreshUser = async ({
 
   const user = await fetchCurrentUser();
 
-  return { user, token: { refresh, id } };
+  return { user, token: { access, refresh } };
 };
 
 export const createUser = async (data: SignUpPropsType) => {

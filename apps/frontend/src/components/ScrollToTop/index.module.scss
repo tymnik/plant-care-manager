@@ -1,0 +1,20 @@
+@import "../../styles/_vars.scss";
+
+.btnTop {
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  z-index: 3;
+  &__icon {
+    box-sizing: content-box;
+    padding: 4px;
+    width: 30px;
+    height: 30px;
+    stroke: $grey-dark;
+    transition: all $transition;
+    background-color: var(--tertiary-bg);
+    border-radius: 50%;
+    border: 1px solid var(--secondary-bg);
+    transform: rotate(90deg);
+  }
+}
