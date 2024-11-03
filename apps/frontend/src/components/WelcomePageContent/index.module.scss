@@ -50,13 +50,13 @@
     align-items: center;
     gap: 16px;
     padding: 8px 12px;
-    background-color: $primary-green;
+    background-color: var(--primary-accent-bg);
     border-radius: 8px;
     &__order {
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: $secondary-green;
+      background-color: var(--secondary-accent-bg);
       border-radius: 50%;
       width: 20px;
       height: 20px;
@@ -95,16 +95,15 @@
     transition: $transition;
     &:hover,
     &:focus {
-      background-color: $tertiary-green;
-      text-shadow: $primary-shadow;
+      background-color: var(--tertiary-accent-bg);
     }
   }
   &__signButton {
-    background-color: $secondary-green;
+    background-color: var(--primary-accent-bg);
   }
   &__loginButton {
-    border: 2px solid $secondary-green;
-    background-color: $primary-green;
+    border: 2px solid var(--primary-accent-bg);
+    background-color: var(--secondary-accent-bg);
     &:hover,
     &:focus {
       border: 2px solid transparent;
@@ -175,7 +174,7 @@
 }
 
 @media screen and (min-width: $desktop) {
-   .wpc {
+  .wpc {
     gap: 40px;
     &__heading {
       font-size: 36px;

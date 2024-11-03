@@ -12,21 +12,20 @@
   font-size: 14px;
   font-weight: $regular-extra;
   transition: all $transition;
-  &:hover,
-  &:focus {
-    background-color: $tertiary-green;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-  }
   &:disabled {
     background-color: $grey;
     cursor: not-allowed;
   }
   &.primary {
-    background-color: $secondary-green;
+    background-color: var(--secondary-accent-bg);
+    &:hover,
+    &:focus {
+      background-color: var(--tertiary-accent-bg);
+    }
   }
   &.secondary {
-    border: 2px solid $secondary-green;
-    background-color: $primary-green;
+    border: 2px solid var(--secondary-accent-bg);
+    background-color: var(--secondary-accent-bg);
     &:hover,
     &:focus {
       border: 2px solid transparent;
@@ -41,13 +40,11 @@
   &.ghost {
     width: fit-content;
     height: fit-content;
-    color: var(--primary-text-color);
     background-color: transparent;
     font-weight: $light;
     &:hover,
     &:focus {
       text-decoration: underline;
-      text-shadow: unset;
     }
   }
 }
@@ -65,8 +62,5 @@
     width: 180px;
     height: 52px;
     font-size: 28px;
-    &.ghost {
-      font-size: 24px;
-    }
   }
 }

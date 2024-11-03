@@ -1,0 +1,99 @@
+@import "../../styles/vars";
+
+.ep_greeting {
+  background-color: var(--tertiary-bg);
+  opacity: 1;
+  background-image: radial-gradient(var(--accent-color) 2px, transparent 2px),
+    radial-gradient(var(--accent-color) 2px, var(--tertiary-bg) 2px);
+  background-size: 80px 80px;
+  background-position:
+    0 0,
+    40px 40px;
+  transition: all $transition;
+  &__wrapper {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    &__infoBlock {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+  &__title {
+    background-color: var(--tertiary-bg);
+    margin: 0 auto;
+    color: var(--tertiary-text-color);
+    font-size: 24px;
+    font-weight: $medium;
+    text-shadow: $tertiary-shadow;
+    height: 100%;
+    transition: color $transition;
+  }
+  &__text {
+    background-color: var(--tertiary-bg);
+    display: flex;
+    color: var(--tertiary-text-color);
+    font-size: 16px;
+    line-height: 1.5;
+    text-shadow: $tertiary-shadow;
+    height: 100%;
+    transition: color $transition;
+  }
+  &__slider {
+    display: flex;
+    margin: 0 auto;
+    height: 300px;
+    width: 300px;
+    object-position: center;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: $card-shadow;
+  }
+}
+
+@media screen and (min-width: $tablet) {
+  .ep_greeting {
+    &__wrapper {
+      padding: 20px;
+      gap: 20px;
+      &__infoBlock {
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 20px;
+      }
+    }
+    &__title {
+      font-size: 36px;
+    }
+    &__text {
+      max-width: 50%;
+      font-size: 18px;
+    }
+    &__slider {
+      margin: unset;
+    }
+  }
+}
+
+@media screen and (min-width: $desktop) {
+  .ep_greeting {
+    &__wrapper {
+      padding: 48px 60px;
+      gap: 24px;
+      &__infoBlock {
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 24px;
+      }
+    }
+    &__title {
+      font-size: 48px;
+    }
+    &__text {
+      max-width: 70%;
+      font-size: 24px;
+    }
+  }
+}

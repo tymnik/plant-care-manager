@@ -11,7 +11,6 @@ import { LoginPropsType, SignUpPropsType } from "../../schemas";
 
 import { UserState } from "./slice";
 
-type UserId = string | number;
 type UserResponse = Pick<UserState, "user" | "token">;
 
 export interface ErrorResponse {
@@ -68,7 +67,7 @@ export const getCurrentUser = createAsyncThunk<
 
 export const refreshCurrentUser = createAsyncThunk<
   UserResponse,
-  { id: UserId; refresh: string },
+  { refresh: string },
   { rejectValue: string }
 >("auth/refresh", async (token, thunkAPI) => {
   try {
