@@ -1,8 +1,23 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Plant } from "@plant-care/types";
 import { $Enums } from "@prisma/client";
+import { Expose } from "class-transformer";
 
 export class PlantDto implements Plant {
+  @Expose()
+  @ApiProperty({
+    type: Date,
+    description: "Date of the create",
+    example: new Date(),
+  })
+  createAt!: Date;
+  @Expose()
+  @ApiProperty({
+    type: Date,
+    description: "Date of the last update",
+    example: new Date(),
+  })
+  updateAt!: Date;
   @ApiProperty({
     type: String,
     description: "Name of the plant",
@@ -11,11 +26,11 @@ export class PlantDto implements Plant {
   name!: string;
 
   @ApiProperty({
-    type: Number,
+    type: String,
     description: "Unique identifier of the plant",
     example: 1,
   })
-  id!: number;
+  id!: string;
 
   @ApiProperty({
     type: [String],
@@ -30,13 +45,6 @@ export class PlantDto implements Plant {
     example: ["Rose", "Red Rose"],
   })
   otherNames!: string[];
-
-  @ApiProperty({
-    type: [String],
-    description: "Images of the plant",
-    example: ["https://example.com/rose.jpg"],
-  })
-  images!: string[];
 
   @ApiProperty({
     type: String,

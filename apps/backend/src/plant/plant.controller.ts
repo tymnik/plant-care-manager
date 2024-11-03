@@ -7,8 +7,17 @@ import {
   Patch,
   Post,
   Query,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import {
   FindManyDto,
   PaginationDto,
@@ -18,12 +27,15 @@ import {
   PlantUpdateBodyDto,
 } from '@plant-care/dtos';
 import { BaseCrudController } from 'src/shared/classes/BaseCrudController';
-import { Pagination } from 'src/shared/classes/pagination';
 import { ApiOkResponsePaginated } from 'src/shared/decorators/api-ok-response-paginated.decorator';
 import { PlantService } from './plant.service';
+import { AccessTokenGuard } from 'src/auth/guards/access-token.guard';
+import { CustomFileInterceptor } from 'src/file/interceptors/file.interceptor';
 
 @Controller('plant')
 @ApiTags('Plant')
+@ApiBearerAuth()
+@UseGuards(AccessTokenGuard)
 export class PlantController extends BaseCrudController<
   PlantResponseDto,
   PlantCreateBodyDto,
@@ -58,7 +70,26 @@ export class PlantController extends BaseCrudController<
     return super.update(params, body);
   }
   @Delete(':id')
-  remove(params: PlantIdPathParamsDto): Promise<PlantResponseDto> {
-    return super.remove(params);
+  delete(params: PlantIdPathParamsDto): Promise<PlantResponseDto> {
+    return super.delete(params);
+  }
+
+  @Post(':id/upload/image')
+  @UseInterceptors(CustomFileInterceptor)
+  @ApiOperation({ summary: 'Upload a file' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  async uploadFile(@UploadedFile() file, @Param('id') id: string) {
+    this.plantService.upload(file, id);
   }
 }

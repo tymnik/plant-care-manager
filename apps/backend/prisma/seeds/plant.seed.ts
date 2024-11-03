@@ -1,6 +1,5 @@
-import { PrismaClient } from '@prisma/client';
 import { faker } from '@faker-js/faker';
-import * as dotenv from 'dotenv';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -8,7 +7,6 @@ export const fakerPlant = () => ({
   name: faker.lorem.word(),
   scientificNames: [faker.lorem.word()],
   otherNames: [faker.lorem.word(), faker.lorem.word()],
-  images: [faker.image.url()],
   cycle: faker.helpers.arrayElement(['Annual', 'Perennial', 'Biennial']),
   watering: faker.helpers.arrayElement([
     'Frequent',
@@ -85,22 +83,5 @@ export const fakerPlant = () => ({
   rareLevel: faker.lorem.word(),
   rare: faker.datatype.boolean(),
   description: faker.lorem.paragraph(),
+  id: faker.string.uuid(),
 });
-
-async function plantSeed() {
-  const fakerRounds = 10;
-  dotenv.config();
-  console.log('Seeding...');
-  const data = [];
-  for (let i = 0; i < fakerRounds; i++) {
-    data.push(fakerPlant());
-  }
-  await prisma.plant.createMany({ data, skipDuplicates: true });
-  console.log('Seeding finished.');
-}
-export default () =>
-  plantSeed()
-    .catch((e) => console.error(e))
-    .finally(async () => {
-      await prisma.$disconnect();
-    });

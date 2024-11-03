@@ -1,0 +1,13 @@
+model UserPlantCare {
+  id      String     @id @default(uuid())
+  plant   Plant   @relation(fields: [plantId], references: [id])
+  plantId String
+  user    User    @relation(fields: [userId], references: [id])
+  userId  String
+  lastWateringTime DateTime?
+  label String
+  primarImage String
+  images File[] @relation("UserPlantCareImages")
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt()
+}

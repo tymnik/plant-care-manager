@@ -2,11 +2,15 @@ import { FindManyDto } from '@plant-care/dtos';
 import { BasePrismaCrudService } from './BasePrismaCrudService';
 import { skip } from 'node:test';
 import { Pagination } from './pagination';
+import {
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 
 export class BaseCrudController<
   T,
   Create,
-  IdPathParams extends { id: number },
+  IdPathParams extends { id: string },
   UpdateBody,
 > {
   constructor(
@@ -19,34 +23,94 @@ export class BaseCrudController<
       unknown
     >,
   ) {}
-  create(createPlantDto: Create): Promise<T> {
-    return this.baseCrudService.create(createPlantDto);
+  async create(createPlantDto: Create): Promise<T> {
+    try {
+      return await this.baseCrudService.create(createPlantDto);
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Failed to create resource',
+        error,
+      );
+    }
   }
-  async findAll(body: FindManyDto): Promise<Pagination<T>> {
-    const count = await this.baseCrudService.count();
 
-    const data = await this.baseCrudService.findMany({
-      skip: (body.page - 1) * body.perPage || 0,
-      take: +body.perPage || 20,
-      orderBy:
-        body.orderBy && body.order
-          ? {
-              [body.orderBy]: body.order,
-            }
-          : { id: 'asc' },
-    });
-    return new Pagination<T>(data, count, body.perPage || 20, body.page || 1);
+  async findAll(body: FindManyDto): Promise<Pagination<T>> {
+    try {
+      const count = await this.baseCrudService.count();
+
+      const data = await this.baseCrudService.findMany({
+        skip: (body.page - 1) * body.perPage || 0,
+        take: +body.perPage || 20,
+        orderBy:
+          body.orderBy && body.order
+            ? {
+                [body.orderBy]: body.order,
+              }
+            : { id: 'asc' },
+      });
+      return new Pagination<T>(data, count, body.perPage || 20, body.page || 1);
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Failed to retrieve resources',
+        error,
+      );
+    }
   }
-  findOne(params: IdPathParams): Promise<T> {
-    return this.baseCrudService.findOne({ id: +params.id });
+
+  async findOne(params: IdPathParams): Promise<T> {
+    try {
+      const result = await this.baseCrudService.findOne({ id: +params.id });
+      if (!result) {
+        throw new NotFoundException(`Resource with id ${params.id} not found`);
+      }
+      return result;
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'Failed to retrieve resource',
+        error,
+      );
+    }
   }
-  update(params: IdPathParams, updatePlantDto: UpdateBody): Promise<T> {
-    return this.baseCrudService.update({
-      where: { id: params.id },
-      data: updatePlantDto,
-    });
+
+  async update(params: IdPathParams, updatePlantDto: UpdateBody): Promise<T> {
+    try {
+      const result = await this.baseCrudService.update({
+        where: { id: params.id },
+        data: updatePlantDto,
+      });
+      if (!result) {
+        throw new NotFoundException(`Resource with id ${params.id} not found`);
+      }
+      return result;
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'Failed to update resource',
+        error,
+      );
+    }
   }
-  remove(params: IdPathParams): Promise<T> {
-    return this.baseCrudService.delete({ id: params?.id });
+
+  async delete(params: IdPathParams): Promise<T> {
+    try {
+      const result = await this.baseCrudService.delete({ id: params?.id });
+      if (!result) {
+        throw new NotFoundException(`Resource with id ${params.id} not found`);
+      }
+      return result;
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'Failed to delete resource',
+        error,
+      );
+    }
   }
 }
