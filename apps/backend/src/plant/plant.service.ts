@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { Plant } from '@plant-care/types';
 import { PlantFileService } from 'src/file/services/plant-file.service';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -19,6 +19,7 @@ export class PlantService
 {
   constructor(
     protected prisma: PrismaService,
+    @Inject(forwardRef(() => PlantFileService))
     protected readonly fileService: PlantFileService,
     @Inject('model') recourse: string,
   ) {

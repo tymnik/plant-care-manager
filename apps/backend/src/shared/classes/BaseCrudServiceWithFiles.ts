@@ -39,6 +39,7 @@ export class BasePrismaCrudWithFileService<
     try {
       this.fileService.upload(file, ...args);
     } catch (err) {
+      console.log(err);
       throw new Error(`Failed to upload file: ${err.message}`);
     }
   }

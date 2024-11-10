@@ -15,10 +15,9 @@ const client = new S3Client({
   forcePathStyle: true,
 });
 function getFileUrlByKey(filename: string) {
-  `http://localhost:9000/${bucketName}/${filename}`;
+  return `http://localhost:9000/${bucketName}/${filename}`;
 }
 async function upload(buffer: Buffer, key: string, mimetype) {
-  console.log(key);
   const command = new PutObjectCommand({
     Bucket: bucketName,
     Key: key,
@@ -27,7 +26,8 @@ async function upload(buffer: Buffer, key: string, mimetype) {
   });
   try {
     await client.send(command);
-    return getFileUrlByKey(key);
+    const filename = await getFileUrlByKey(key);
+    return filename;
   } catch (err) {
     console.error(err);
     throw new Error("Can't save file from storage");
@@ -46,17 +46,21 @@ async function uploadResizedArray(
       },
       ...resizedImgBuffers.map(async (obj) => {
         for (const [key, buffer] of Object.entries(obj)) {
-          return {
+          const res = {
             [`${key}`]: await upload(
               buffer,
               `${folder}/${key}.${'png'}`,
               mimetype,
             ),
           };
+
+          return await res;
         }
       }),
     ])
-  ).reduce((acc, cur) => ({ ...acc, ...cur }), {});
+  ).reduce((acc, cur) => {
+    return { ...acc, ...cur };
+  }, {});
 }
 export async function uploadFakeImagesAndReturnScales(plantId: string) {
   const folder = `admin/uploads/plant/${plantId}`;

@@ -35,8 +35,6 @@ import { CustomFileInterceptor } from 'src/file/interceptors/file.interceptor';
 
 @Controller('plant')
 @ApiTags('Plant')
-@ApiBearerAuth()
-@UseGuards(AccessTokenGuard)
 export class PlantController extends BaseCrudController<
   PlantResponseDto,
   PlantCreateBodyDto,
@@ -47,6 +45,8 @@ export class PlantController extends BaseCrudController<
     super(plantService);
   }
   @Post()
+  @ApiBearerAuth()
+  @UseGuards(AccessTokenGuard)
   create(
     @Body() createPlantDto: PlantCreateBodyDto,
   ): Promise<PlantResponseDto> {
@@ -64,6 +64,8 @@ export class PlantController extends BaseCrudController<
   ): Promise<PaginationDto<PlantResponseDto>> {
     return super.findAll(query);
   }
+  @ApiBearerAuth()
+  @UseGuards(AccessTokenGuard)
   @Patch(':id')
   update(
     @Param() params: PlantIdPathParamsDto,
@@ -72,6 +74,8 @@ export class PlantController extends BaseCrudController<
     return super.update(params, body);
   }
   @Delete(':id')
+  @ApiBearerAuth()
+  @UseGuards(AccessTokenGuard)
   delete(params: PlantIdPathParamsDto): Promise<PlantResponseDto> {
     return super.delete(params);
   }
@@ -91,6 +95,8 @@ export class PlantController extends BaseCrudController<
       },
     },
   })
+  @ApiBearerAuth()
+  @UseGuards(AccessTokenGuard)
   async uploadFile(@UploadedFile() file, @Param('id') id: string) {
     this.plantService.upload(file, id);
   }
